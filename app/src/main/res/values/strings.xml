@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Goodroad</string>
+
+    <string name="btn_report">신고하기</string>
 </resources>
