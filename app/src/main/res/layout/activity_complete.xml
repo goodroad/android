@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_complete"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sicamp.goodroad.CompleteActivity"
+    android:background="#ffffff">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/end_page"
+        android:id="@+id/imageView10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:visibility="gone"
+        android:text="신고해주셔서\n감사합니다"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/report_black"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:id="@+id/textView11"
+        android:layout_alignBottom="@+id/imageView10"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="37dp" />
+</RelativeLayout>

@@ -1,8 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+    useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "com.sicamp.goodroad"
         minSdkVersion 19
@@ -17,6 +23,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -24,6 +31,16 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
+    compile('org.apache.httpcomponents:httpmime:4.3.5') {
+        exclude module: 'org.apache.httpcomponents:httpclient'
+    }
     compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:design:25.1.0'
     testCompile 'junit:junit:4.12'
+    compile files('libs/libDaumMapAndroid.jar')
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
 }

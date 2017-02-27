@@ -1,5 +1,71 @@
 <resources>
-    <string name="app_name">Goodroad</string>
+    <string name="app_name">굿로드</string>
 
     <string name="btn_report">신고하기</string>
+    <string name="report_group">신고하는 동물이 무엇입니까?</string>
+    <string name="report_write">직접 작성할게요</string>
+
+
+    <string name="btn_group_1">포유류</string>
+    <string name="btn_group_2">파충류</string>
+    <string name="btn_group_3">조류</string>
+    <string name="btn_group_4">양서류</string>
+    <string name="title_activity_report"></string>
+    <string name="toolbar_title">로드킬 신고 등록</string>
+    <string name="camera_caution">당신의 안전부터 확인하세요.</string>
+    <string name="camera_caution_detail">갓길, 가드레일 확인 후\n안전한 곳에서 신고하세요.</string>
+    <string name="report_info">신고정보</string>
+    <string name="report_ect_1">에</string>
+    <string name="report_ect_2">에서</string>
+    <string name="report">로드킬을 봤어요!</string>
+    <string name="report_more">상세 정보 입력</string>
+    <string name="reporting">신고하기</string>
+    <string name="report_detail">상세 정보 입력</string>
+    <string name="report_group1">포유류</string>
+    <string name="report_group2">양서류</string>
+    <string name="report_group3">조류</string>
+    <string name="report_group4">파충류</string>
+    <string name="report_group1_1">개</string>
+    <string name="report_group1_2">고라니</string>
+    <string name="report_group1_3">고양이</string>
+    <string name="report_group1_4">너구리</string>
+    <string name="report_group1_5">노루</string>
+    <string name="report_group1_6">다람쥐</string>
+    <string name="report_group1_7">담비</string>
+    <string name="report_group1_8">두더지</string>
+    <string name="report_group1_9">멧돼지</string>
+    <string name="report_group1_10">멧토끼</string>
+    <string name="report_group1_11">삵</string>
+    <string name="report_group1_12">수달</string>
+    <string name="report_group1_13">족제비</string>
+    <string name="report_group1_14">쥐</string>
+    <string name="report_group1_15">청설모</string>
+    <string name="report_group1_16">모르겠어요</string>
+    <string name="report_group2_1">갈매기류</string>
+    <string name="report_group2_2">까마귀류</string>
+    <string name="report_group2_3">뀡류</string>
+    <string name="report_group2_4">매류</string>
+    <string name="report_group2_5">백로류</string>
+    <string name="report_group2_6">수리류</string>
+    <string name="report_group2_7">오리류</string>
+    <string name="report_group2_8">올빼미류</string>
+    <string name="report_group2_9">참새류</string>
+    <string name="report_group2_10">모르겠어요</string>
+    <string name="report_group3_1">개구리</string>
+    <string name="report_group3_2">도롱뇽</string>
+    <string name="report_group3_3">두꺼비</string>
+    <string name="report_group3_4">모르겠어요</string>
+    <string name="report_group4_1">거북이</string>
+    <string name="report_group4_2">도마뱀</string>
+    <string name="report_group4_3">뱀</string>
+    <string name="report_group4_4">모르겠어요</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_report2">Report2Activity</string>
+
 </resources>
