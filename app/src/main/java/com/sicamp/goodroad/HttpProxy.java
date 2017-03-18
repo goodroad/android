@@ -52,12 +52,16 @@ public class HttpProxy {
         return mInstance;
     }
 
-    public JSONObject httpGet(final String url, final JSONObject headers) throws JSONException {
-        return connectHttp(url, headers, null, Method.GET);
+//    public JSONObject httpGet(final String url, final JSONObject headers) throws JSONException {
+    public void httpGet(final String url, final JSONObject headers) throws JSONException {
+//        return connectHttp(url, headers, null, Method.GET);
+        connectHttp(url, headers, null, Method.GET);
     }
 
-    public Object httpPost(final String url, final JSONObject headers, final JSONObject params) throws JSONException {
-        return connectHttp(url, headers, params, Method.POST);
+    public void httpPost(final String url, final JSONObject headers, final JSONObject params) throws JSONException {
+//    public Object httpPost(final String url, final JSONObject headers, final JSONObject params) throws JSONException {
+//        return connectHttp(url, headers, params, Method.POST);
+        connectHttp(url, headers, params, Method.POST);
     }
 
     public Object httpPostFile(final String url, final JSONObject headers, final JSONObject params) throws JSONException {
@@ -104,7 +108,8 @@ public class HttpProxy {
 
     }
 
-    private JSONObject connectHttp(final String url, final JSONObject headers, final JSONObject params, final Method method) throws JSONException {
+//    private JSONObject connectHttp(final String url, final JSONObject headers, final JSONObject params, final Method method) throws JSONException {
+    private void connectHttp(final String url, final JSONObject headers, final JSONObject params, final Method method) throws JSONException {
         Log.d(TAG, "connectHttp(" + url + ")(" + params + ")" + ", headers : " + headers);
         HttpURLConnection conn = null;
 
@@ -146,27 +151,27 @@ public class HttpProxy {
                     break;
             }
             conn.connect();
-            Log.d(TAG, "response : " + conn.getResponseCode() + ", " + conn.getResponseMessage());
-
-            int status = conn.getResponseCode();
-            if (status == HttpURLConnection.HTTP_OK || status == HttpURLConnection.HTTP_CREATED) {
-                InputStream is = conn.getInputStream();
-                JSONObject rspObj = readIt(is);
-                Log.d(TAG, "response : " + rspObj.toString());
-                Log.i(TAG, "getResponseCode : " + status);
-                return rspObj;
-            } else {
-                InputStream inputStream = conn.getErrorStream();
-                JSONObject object = readIt(inputStream);
-                Log.e(TAG, "HTTP error : " + object.toString());
-
-                String resultCode = object.getString("resultCode");
-                if (TextUtils.isEmpty(resultCode)) {
-                    throw new RuntimeException("HTTP Connection Error : " + object.toString());
-                } else {
-                    throw new Exception(resultCode);
-                }
-            }
+//            Log.d(TAG, "response : " + conn.getResponseCode() + ", " + conn.getResponseMessage());
+//
+//            int status = conn.getResponseCode();
+//            if (status == HttpURLConnection.HTTP_OK || status == HttpURLConnection.HTTP_CREATED) {
+//                InputStream is = conn.getInputStream();
+//                JSONObject rspObj = readIt(is);
+//                Log.d(TAG, "response : " + rspObj.toString());
+//                Log.i(TAG, "getResponseCode : " + status);
+//                return rspObj;
+//            } else {
+//                InputStream inputStream = conn.getErrorStream();
+//                JSONObject object = readIt(inputStream);
+//                Log.e(TAG, "HTTP error : " + object.toString());
+//
+//                String resultCode = object.getString("resultCode");
+//                if (TextUtils.isEmpty(resultCode)) {
+//                    throw new RuntimeException("HTTP Connection Error : " + object.toString());
+//                } else {
+//                    throw new Exception(resultCode);
+//                }
+//            }
         } catch (MalformedURLException e) {
             Log.e(TAG, TAG + " MalformedURLException : " + e.toString());
             throw new RuntimeException(TAG + " MalformedURLException : " + e.toString());

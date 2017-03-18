@@ -13,8 +13,8 @@ android {
         applicationId "com.sicamp.goodroad"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 101 // XX.YY.ZZ => 00.01.01
-        versionName "0.1.0"
+        versionCode 900 // XX.YY.ZZ => 00.01.01
+        versionName "0.9.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

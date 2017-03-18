@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -68,6 +69,7 @@ public class ReportFragment extends Fragment implements LocationListener, OnMapR
     private double mLng;
     private double mLat;
     private String mTimeString;
+    private String mTimeReport;
     private String mLocationString;
     private String mGroup1;
 
@@ -199,7 +201,7 @@ public class ReportFragment extends Fragment implements LocationListener, OnMapR
                 JSONObject params = new JSONObject();
                 params.put("group1", mGroup1);
                 params.put("group2", "test");
-                params.put("writeDate", String.valueOf(mTime));
+                params.put("writeDate", mTimeReport);
                 params.put("lng", mLng);
                 params.put("lat", mLat);
                 params.put("file", mFileName);
@@ -230,6 +232,9 @@ public class ReportFragment extends Fragment implements LocationListener, OnMapR
             super.onPostExecute(jsonObject);
             Toast.makeText(getContext(), "신고 되었습니다.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), CompleteActivity.class);
+            intent.putExtra("time", mTimeString);
+            intent.putExtra("location", mLocationString);
+            intent.putExtra("group", mGroup1);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             getActivity().finish();
@@ -256,7 +261,9 @@ public class ReportFragment extends Fragment implements LocationListener, OnMapR
     private void getTime() {
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm");
+        SimpleDateFormat reportDateFormat = new SimpleDateFormat("yyyyMMdd");
         mTimeString = simpleDateFormat.format(date);
+        mTimeReport = reportDateFormat.format(date);
         mTime = date.getTime();
     }
 
@@ -319,6 +326,12 @@ public class ReportFragment extends Fragment implements LocationListener, OnMapR
             e.printStackTrace();
         }
         return nowAddress;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        getLocation();
     }
 
     @Override

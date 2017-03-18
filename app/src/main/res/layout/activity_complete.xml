@@ -9,17 +9,16 @@
     android:background="#ffffff">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:srcCompat="@drawable/end_page"
         android:id="@+id/imageView10"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:scaleType="centerCrop"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:visibility="gone"
         android:text="신고해주셔서\n감사합니다"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +27,100 @@
         android:textStyle="bold"
         android:textAlignment="center"
         android:id="@+id/textView11"
-        android:layout_alignBottom="@+id/imageView10"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp" />
+        android:layout_below="@+id/imageView10"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textView11"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
+
+        <TextView
+            android:text="신고정보"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView11"
+            android:layout_alignStart="@+id/imageView10"
+            android:layout_marginTop="24dp"
+            android:id="@+id/textView12"
+            android:textColor="@color/actionBarText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/report_black"
+            android:layout_marginTop="10dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/complete_time"
+                android:id="@+id/imageView11"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView13"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView11"
+                android:layout_marginLeft="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/complete_location"
+                android:id="@+id/imageView12"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView14"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView12"
+                android:layout_marginLeft="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/complete_group"
+                android:id="@+id/imageView13"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView15"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imageView13"
+                android:layout_marginLeft="20dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
 </RelativeLayout>

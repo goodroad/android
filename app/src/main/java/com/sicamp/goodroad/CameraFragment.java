@@ -1,12 +1,15 @@
 package com.sicamp.goodroad;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,15 +43,14 @@ public class CameraFragment extends Fragment {
         return mInstance;
     }
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
         ButterKnife.bind(this, view);
         Picasso.with(getContext()).load(R.drawable.roadinpeace).into(mImageBg);
-
+        checkpermission();
+        checkLocationPermssion();
         return view;
     }
 
@@ -103,6 +105,26 @@ public class CameraFragment extends Fragment {
         startActivity(intent);
         getActivity().finish();
 
+    }
+
+    private void checkpermission() {
+        Log.d(TAG, "checkpermission!!");
+        if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+        }
+
+
+    }
+
+    private void checkLocationPermssion() {
+        Log.d(TAG, "checkLocationPermssion!!");
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
     }
 
 
