@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +73,9 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
     private TextView mTvAddr;
     private TextView mTvTime;
+    private Thread mThreadLocation;
+
+    private View mView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -101,7 +106,6 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
      * @param param2 Parameter 2.
      * @return A new instance of fragment ReportFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static ReportFragment newInstance(String param1, String param2) {
         ReportFragment fragment = new ReportFragment();
         Bundle args = new Bundle();
@@ -162,9 +166,55 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
                              Bundle savedInstanceState) {
         ((MainActivity)getActivity()).setToolbarTitle(R.string.app_main_activity_title_for_report);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_report, container, false);
+        mView = inflater.inflate(R.layout.fragment_report, container, false);
+        mView.setFocusableInTouchMode(true);
+        mView.requestFocus();
+
+        final Fragment self = this;
+
+        mView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP ) {
+                    Log.i(TAG, "onKey Back listener is working!!!");
+                    android.support.v7.app.AlertDialog.Builder alt_bld = new android.support.v7.app.AlertDialog.Builder(getContext());
+                    alt_bld.setMessage(getString(R.string.cancel_report)).setCancelable(
+                            false).setPositiveButton(getString(R.string.common_yes),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    closeFragment();
+                                    dialog.dismiss();
+                                }
+                            }).setNegativeButton(getString(R.string.common_no),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    android.support.v7.app.AlertDialog alert = alt_bld.create();
+                    // Title for AlertDialog
+                    alert.setTitle(getString(R.string.common_confirm));
+                    alert.show();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+
+        return mView;
     }
 
+    public void closeFragment() {
+        if( mThreadLocation != null ) {
+            try {
+                mThreadLocation.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -309,7 +359,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         final MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
         Log.i(TAG, String.format("MapView onMapViewMoveFinished (%f,%f)", mapPointGeo.latitude, mapPointGeo.longitude));
         setCenterMarker();
-        new Thread(new Runnable() {
+        mThreadLocation = new Thread(new Runnable() {
             @Override
             public void run() {
                 JSONObject addr = SMHttpClient.execute("GET","https://apis.daum.net/local/geo/coord2addr",null,
@@ -325,13 +375,15 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
                                 mTvAddr.setText(fullName);
                             }
                         });
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                } finally {
+                    mThreadLocation = null;
                 }
             }
-        }).start();
+        });
+        mThreadLocation.start();
     }
 
     @Override
