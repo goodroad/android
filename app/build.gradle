@@ -36,7 +36,13 @@ android {
             keyPassword System.getProperty("keyPassword") // 키 패스워드
         }
     }
-
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release // 서명 설정
+        }
+    }
 }
 
 dependencies {
