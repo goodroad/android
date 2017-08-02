@@ -7,6 +7,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -66,6 +67,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     MapPOIItem mCurrentMarker = null;
 
     private net.daum.mf.map.api.MapView mMapView;
+    private ImageView mIvImageReport;
 
     private TextView mTvAddr;
     private TextView mTvTime;
@@ -113,7 +115,10 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         //resize
         if( uri == null ) return;
         try {
-            mBitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
+            mBitmap = Bitmap.createScaledBitmap(bitmap, 640, 480, true);
+
+            bitmap.recycle();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -132,8 +137,8 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
                 FileOutputStream outputStream = new FileOutputStream(file);
                 mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
 
-                ImageView ivImageReport = (ImageView) getView().findViewById(R.id.image_report);
-                ivImageReport.setImageBitmap(mBitmap);
+                mIvImageReport = (ImageView) getView().findViewById(R.id.image_report);
+                mIvImageReport.setImageBitmap(mBitmap);
 
                 outputStream.close();
             } catch (IOException e) {
@@ -222,8 +227,11 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     public void onDestroyView() {
         super.onDestroyView();
 
-        if( mBitmap != null )
-            mBitmap.recycle();
+        Log.d(TAG,"onDestroyView");
+
+        mBitmap.recycle();
+        mBitmap = null;
+        ((BitmapDrawable) mIvImageReport.getDrawable()).getBitmap().recycle();
     }
 
     @Override
