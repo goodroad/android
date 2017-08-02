@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container_splash"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.sicamp.goodroad.splash.SplashActivity">
-
-</FrameLayout>
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@mipmap/loading_bg"
+    tools:context="net.softminds.goodroad.activity.SplashActivity">
+    <ImageView android:id="@+id/splash_logo"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="100px"
+        android:src="@mipmap/loading_logo"
+        android:layout_gravity="center"/>
+    <ImageView android:id="@+id/splash_copyright" android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="-100px"
+        android:src="@mipmap/loading_copyright"
+        android:layout_gravity="center"/>
+</LinearLayout>

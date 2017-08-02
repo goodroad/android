@@ -1,88 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:text="@string/btn_report"
-        android:id="@+id/btn_report"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:background="#ecc904"
-        android:textSize="20sp" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="100dp"
-        android:id="@+id/textView_time"
-        android:layout_marginLeft="50dp" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_time"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="50dp"
-        android:id="@+id/textView_location"
-        android:layout_marginLeft="50dp" />
-
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/textView_location"
-        android:layout_marginTop="30dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:layout_height="match_parent"
+        android:id="@+id/imageView_bg"
+        android:scaleType="fitXY" />
 
-        <CheckBox
-            android:text="@string/btn_group_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox1"
-            android:layout_weight="1" />
-        <CheckBox
-            android:text="@string/btn_group_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox2"
-            android:layout_weight="1" />
-        <CheckBox
-            android:text="@string/btn_group_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox3"
-            android:layout_weight="1" />
-        <CheckBox
-            android:text="@string/btn_group_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkBox4"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <Button
+    <ImageButton
         android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_above="@+id/btn_report"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:text="photo"
-        android:id="@+id/btn_photo" />
+        android:layout_marginBottom="80dp"
+        android:id="@+id/imageButton_camera"
+        android:background="@mipmap/btn_camera"
+        android:layout_height="135dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="160dp"
+        app:srcCompat="@mipmap/image_caution"
+        android:id="@+id/imageView2"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/btn_photo"
-        android:id="@+id/photo" />
+        android:layout_marginTop="80dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp" />
+
+    <TextView
+        android:text="@string/camera_caution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/camera_caution_text" />
+
+    <TextView
+        android:text="@string/camera_caution_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textColor="@color/camera_caution_text"
+        android:layout_marginTop="20dp" />
+
 </RelativeLayout>

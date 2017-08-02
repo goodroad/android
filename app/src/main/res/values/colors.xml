@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <!--<color name="colorPrimaryDark">#303F9F</color>-->
-    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
-    <color name="actionBarBackgroud">#31312f</color>
-    <color name="actionBarText">#ecc314</color>
-
     <color name="camera_caution_text">#ffffff</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="list_group_title">#000000</color>
+    <color name="list_item_title">#000000</color>
+    <color name="group_divider_color">#dddddd</color>
+    <color name="list_item_submenu_title">#999999</color>
     <color name="report_bg">#eff0f4</color>
     <color name="report_layout_bg">#ffffff</color>
     <color name="report_text">#ecc314</color>
     <color name="report_color">#be8b10</color>
     <color name="report_black">#31312f</color>
-
+    <color name="colorTitle">#ECC214</color>
 </resources>

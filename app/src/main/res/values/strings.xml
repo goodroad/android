@@ -1,19 +1,21 @@
 <resources>
     <string name="app_name">굿로드</string>
+    <string name="app_main_activity_title">GOODROAD</string>
+    <string name="app_main_activity_title_for_report">로드킬 신고 등록</string>
 
-    <string name="btn_report">신고하기</string>
-    <string name="report_group">신고하는 동물이 무엇입니까?</string>
-    <string name="report_write">직접 작성할게요</string>
-
-
-    <string name="btn_group_1">포유류</string>
-    <string name="btn_group_2">파충류</string>
-    <string name="btn_group_3">조류</string>
-    <string name="btn_group_4">양서류</string>
-    <string name="title_activity_report"></string>
-    <string name="toolbar_title">로드킬 신고 등록</string>
     <string name="camera_caution">당신의 안전부터 확인하세요.</string>
     <string name="camera_caution_detail">갓길, 가드레일 확인 후\n안전한 곳에서 신고하세요.</string>
+    <string name="navigation_drawer_open">공지사항 열기</string>
+    <string name="navigation_drawer_close">공지사항 닫기</string>
+    <string name="activity_title_notice">공지사항</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="menu_roadkill_method">로드킬 대처방법</string>
+    <string name="menu_roadkill_manual">로드킬 대처 매뉴얼</string>
+    <string name="menu_roadkill_phone">신고전화</string>
+    <string name="menu_introduction">굿로드 소개</string>
+    <string name="menu_news">굿로드 뉴스</string>
+
     <string name="report_info">신고정보</string>
     <string name="report_ect_1">에</string>
     <string name="report_ect_2">에서</string>
@@ -60,12 +62,14 @@
     <string name="report_group4_3">뱀</string>
     <string name="report_group4_4">모르겠어요</string>
 
+    <string name="btn_report">신고하기</string>
+    <string name="report_group">신고하는 동물이 무엇입니까?</string>
+    <string name="report_write">직접 작성할게요</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
 
-
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_report2">Report2Activity</string>
-
+    <string name="btn_group_1">포유류</string>
+    <string name="btn_group_2">파충류</string>
+    <string name="btn_group_3">조류</string>
+    <string name="btn_group_4">양서류</string>
+    <string name="i_saw_roadkill">로드킬을 봤어요!</string>
 </resources>

@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sicamp.goodroad.main.MainActivity">
+    android:background="@mipmap/image_main_bg"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-</FrameLayout>
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorBlack"
+        app:headerLayout="@layout/nav_header_main"
+        app:itemTextColor="@color/colorBlack">
+        <ExpandableListView
+            android:id="@+id/navList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|start"
+            android:layout_marginTop="@dimen/nav_header_height"
+            android:background="@color/colorWhite"
+            android:divider="@color/group_divider_color"
+            android:dividerHeight="@dimen/divider_height"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"/>
+        </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

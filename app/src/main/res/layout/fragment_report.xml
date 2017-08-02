@@ -1,323 +1,349 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/report_bg">
+    android:layout_marginTop="60dp"
+    android:orientation="vertical"
+    android:background="@color/report_bg"
+    tools:context="net.softminds.goodroad.fragment.ReportFragment">
 
     <RelativeLayout
+        android:id="@+id/map_view"
+        android:padding="@dimen/map_padding"
         android:layout_width="match_parent"
-        android:background="@color/report_layout_bg"
-        android:id="@+id/layout_info"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:layout_below="@+id/layout_map"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:layout_height="140dp">
-
-        <TextView
-            android:text="@string/report_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView4"
-            android:textStyle="bold"
-            android:textColor="@color/report_text"
-            android:textSize="12dp" />
-
-        <ImageView
-            android:layout_height="match_parent"
-            android:layout_below="@id/textView4"
-            android:id="@+id/image_report"
-            android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
-            android:layout_width="90dp"
-            android:layout_marginRight="15dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_toRightOf="@id/image_report"
-            android:layout_alignTop="@id/image_report"
-            android:id="@+id/layout_1"
-            android:gravity="center_vertical"
-            android:layout_height="50dp">
-
-            <TextView
-                android:text="@string/report_ect_1"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:id="@+id/textView6" />
-
-            <TextView
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/textView6"
-                android:layout_marginRight="10dp"
-                android:id="@+id/textView5" />
-
-            <ImageView
-                app:srcCompat="@drawable/icon_cal"
-                android:id="@+id/imageView3"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_toRightOf="@id/image_report"
-            android:layout_alignTop="@id/layout_1"
-            android:background="@color/report_bg"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_toRightOf="@id/image_report"
-            android:layout_below="@id/layout_1"
-            android:background="@color/report_bg"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_toRightOf="@id/image_report"
-            android:layout_below="@id/layout_1"
-            android:id="@+id/layout_2"
-            android:gravity="center_vertical"
-            android:layout_height="50dp">
-
-            <TextView
-                android:text="@string/report_ect_2"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:id="@+id/textView8"
-                android:layout_width="30dp" />
-
-            <ImageView
-                app:srcCompat="@drawable/icon_map"
-                android:id="@+id/imageView4"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
-
-            <TextView
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/textView8"
-                android:layout_toRightOf="@id/imageView4"
-                android:layout_marginRight="10dp"
-                android:id="@+id/textView7"
-                android:layout_marginLeft="10dp" />
-        </RelativeLayout>
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
+        android:layout_marginTop="@dimen/map_margin_top"
+        android:background="@color/colorWhite"
+        android:layout_height="@dimen/map_height" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/layout_info"
-        android:layout_marginTop="40dp"
-        android:background="@color/report_layout_bg"
-        android:id="@+id/layout_detail">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/map_height">
 
-        <TextView
-            android:text="@string/report_more"
-            android:layout_width="wrap_content"
+        <ScrollView
+            android:paddingBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="100dp"
+                android:orientation="vertical" >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/report_layout_bg"
+                    android:id="@+id/layout_info"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="140dp"
+                    android:layout_alignParentLeft="true">
+
+                    <TextView
+                        android:text="@string/report_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_section_label_1"
+                        android:textStyle="bold"
+                        android:textColor="@color/report_text"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:layout_height="80dp"
+                        android:layout_below="@id/tv_section_label_1"
+                        android:id="@+id/image_report"
+                        android:layout_marginTop="10dp"
+                        android:scaleType="centerCrop"
+                        android:layout_width="80dp"
+                        android:layout_marginRight="10dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_toRightOf="@id/image_report"
+                        android:layout_alignTop="@id/image_report"
+                        android:id="@+id/layout_time"
+                        android:gravity="center_vertical"
+                        android:layout_height="40dp">
+
+                        <ImageView
+                            app:srcCompat="@mipmap/icon_cal"
+                            android:id="@+id/iv_icon_cal"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+
+                        <TextView
+                            android:text="@string/report_ect_1"
+                            android:layout_width="30dp"
+                            android:gravity="start|center_vertical"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/colorBlack"
+                            android:id="@+id/tv_in" />
+
+                        <TextView
+                            android:text="2017-08-01 18:00:00"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/tv_in"
+                            android:layout_marginRight="10dp"
+                            android:gravity="end|center_vertical"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorBlack"
+                            android:id="@+id/tv_time" />
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_toRightOf="@id/image_report"
+                        android:layout_below="@id/layout_time"
+                        android:id="@+id/layout_2"
+                        android:gravity="center_vertical"
+                        android:layout_height="40dp">
+
+                        <ImageView
+                            app:srcCompat="@mipmap/icon_map"
+                            android:id="@+id/iv_icon_map"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+                        
+                        <TextView
+                            android:text="@string/report_ect_2"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/tv_at"
+                            android:gravity="start|center_vertical"
+                            android:textColor="@color/colorBlack"
+                            android:layout_width="30dp" />
+
+
+                        <TextView
+                            android:text=""
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/tv_at"
+                            android:gravity="end|center_vertical"
+                            android:textStyle="bold"
+                            android:layout_toRightOf="@id/iv_icon_map"
+                            android:layout_marginRight="10dp"
+                            android:textColor="@color/colorBlack"
+                            android:id="@+id/tv_addr"
+                            android:layout_marginLeft="10dp" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:text="@string/i_saw_roadkill"
+                    android:gravity="end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/layout_info"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/report_layout_bg"
+                    android:id="@+id/layout_detail">
+
+                    <TextView
+                        android:text="@string/report_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="10dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/report_text"
+                        android:id="@+id/textView10"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp" />
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        app:srcCompat="@mipmap/detail_btn_open"
+                        android:id="@+id/imageView5"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="30dp" />
+
+                </RelativeLayout>
+
+
+                <!--<android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/recyclerview"
+                    android:layout_below="@id/layout_detail"
+                    android:layout_above="@+id/button_report"
+                    android:background="@color/report_layout_bg" />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/layout_detail"
+                    android:layout_above="@+id/button_report"
+                    android:background="@color/report_layout_bg"
+                    android:visibility="gone"
+                    android:id="@+id/layout_select">
+
+                    <RelativeLayout
+                        android:id="@+id/layout6"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            app:srcCompat="@mipmap/part_01_select"
+                            android:id="@+id/imageView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imageView6"
+                            android:textColor="@color/report_black"
+                            android:text="포유류"
+                            android:gravity="center_horizontal" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/layout7"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            app:srcCompat="@mipmap/part_02"
+                            android:id="@+id/imageView7"
+                            android:layout_weight="1" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imageView7"
+                            android:textColor="@color/report_black"
+                            android:text="양서류"
+                            android:gravity="center_horizontal" />
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/layout8"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            app:srcCompat="@mipmap/part_03"
+                            android:id="@+id/imageView8"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imageView8"
+                            android:textColor="@color/report_black"
+                            android:text="조류"
+                            android:gravity="center_horizontal" />
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/layout9"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            app:srcCompat="@mipmap/part_04"
+                            android:id="@+id/imageView9"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imageView9"
+                            android:textColor="@color/report_black"
+                            android:text="파충류"
+                            android:gravity="center_horizontal" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+                <TextView
+                    android:text="@string/report"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_info"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/textView9"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/camera_caution_text"
+                    android:layout_above="@id/button_report"
+                    android:id="@+id/layout"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/detail_close"
+                        android:src="@mipmap/close_screen"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="@string/report_detail"
+                        android:gravity="center"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:text="@string/btn_report"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/report_text"
-            android:id="@+id/textView10"
-            android:layout_centerVertical="true" />
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            app:srcCompat="@drawable/detail_btn_open"
-            android:id="@+id/imageView5"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="30dp"
-            android:layout_centerVertical="true" />
-
-    </RelativeLayout>
-
-    <Button
-        android:text="@string/btn_report"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:id="@+id/button_report"
-        android:layout_alignParentBottom="true"
-        android:background="@color/report_text" />
-
-    <!--<android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerview"
-        android:layout_below="@id/layout_detail"
-        android:layout_above="@+id/button_report"
-        android:background="@color/report_layout_bg" />-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_below="@id/layout_detail"
-        android:layout_above="@+id/button_report"
-        android:background="@color/report_layout_bg"
-        android:visibility="visible"
-        android:id="@+id/layout_select">
-
-        <RelativeLayout
-            android:id="@+id/layout6"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <ImageView
-                app:srcCompat="@drawable/part_01_select"
-                android:id="@+id/imageView6"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imageView6"
-                android:textColor="@color/report_black"
-                android:text="포유류"
-                android:gravity="center_horizontal" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layout7"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            app:srcCompat="@drawable/part_02"
-            android:id="@+id/imageView7"
-            android:layout_weight="1" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imageView7"
-                android:textColor="@color/report_black"
-                android:text="양서류"
-                android:gravity="center_horizontal" />
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/layout8"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            app:srcCompat="@drawable/part_03"
-            android:id="@+id/imageView8"
-            android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imageView8"
-                android:textColor="@color/report_black"
-                android:text="조류"
-                android:gravity="center_horizontal" />
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/layout9"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                app:srcCompat="@drawable/part_04"
-                android:id="@+id/imageView9"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imageView9"
-                android:textColor="@color/report_black"
-                android:text="파충류"
-                android:gravity="center_horizontal" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:background="@color/report_layout_bg"
-        android:id="@+id/layout_map"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
-
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/map"
-            class="com.google.android.gms.maps.MapFragment"/>
-
-    </RelativeLayout>
-
-    <TextView
-        android:text="@string/report"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_info"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/textView9" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/camera_caution_text"
-        android:layout_above="@id/button_report"
-        android:id="@+id/layout"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/detail_close"
-            android:src="@drawable/close_screen"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/report_detail"
-            android:gravity="center"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-
+            android:id="@+id/button_report"
+            android:layout_alignParentBottom="true"
+            android:background="@color/report_text"
+            android:layout_alignParentLeft="true" />
     </RelativeLayout>
 </RelativeLayout>
