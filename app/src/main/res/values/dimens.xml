@@ -19,4 +19,5 @@
     <dimen name="map_height">180dp</dimen>
     <dimen name="map_padding">10dp</dimen>
     <dimen name="map_margin_top">10dp</dimen>
+    <dimen name="map_height_plus_padding">190dp</dimen>
 </resources>

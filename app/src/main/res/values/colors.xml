@@ -17,4 +17,5 @@
     <color name="report_color">#be8b10</color>
     <color name="report_black">#31312f</color>
     <color name="colorTitle">#ECC214</color>
+    <color name="colorGray">#999999</color>
 </resources>

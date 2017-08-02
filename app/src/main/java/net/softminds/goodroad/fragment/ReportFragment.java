@@ -40,6 +40,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import static android.content.Context.LOCATION_SERVICE;
 
@@ -66,6 +68,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     private net.daum.mf.map.api.MapView mMapView;
 
     private TextView mTvAddr;
+    private TextView mTvTime;
 
     private OnFragmentInteractionListener mListener;
 
@@ -165,6 +168,14 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         save(mImageDataUri,mContentResolver);
 
         mTvAddr = (TextView) getView().findViewById(R.id.tv_addr);
+        mTvTime = (TextView) getView().findViewById(R.id.tv_time);
+        long time = System.currentTimeMillis();
+
+        SimpleDateFormat dayTime = new SimpleDateFormat("yyyy년M월d일 a hh:mm");
+
+        String str = dayTime.format(new Date(time));
+
+        mTvTime.setText(str);
 
         createMapView();
     }
