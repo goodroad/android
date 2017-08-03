@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/end_page"
+        app:src="@mipmap/end_page"
         android:id="@+id/iv_complete_main_image"
         android:scaleType="centerCrop"
         android:layout_marginTop="30dp"
@@ -66,7 +66,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/icon_cal"
+                app:src="@mipmap/icon_cal"
                 android:id="@+id/iv_icon_cal"
                 android:layout_centerVertical="true" />
 
@@ -91,7 +91,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/icon_map"
+                android:src="@mipmap/icon_map"
                 android:id="@+id/iv_icon_map"
                 android:layout_centerVertical="true" />
 
@@ -116,7 +116,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/icon_group"
+                app:src="@mipmap/icon_group"
                 android:id="@+id/iv_icon_group"
                 android:layout_centerVertical="true" />
 
