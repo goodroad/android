@@ -76,4 +76,13 @@
     <string name="common_no">아니오</string>
     <string name="common_yes">예</string>
     <string name="cancel_report">신고를 취소하시겠습니까?</string>
+    <string name="btn_save">저장</string>
+    <string name="saved_end_string">입니다.</string>
+    <string name="copyright">ⓒ 녹색연합</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="report_summary">신고정보</string>
+    <string name="thank_you_for_report">신고해주셔서\n감사합니다</string>
+    <string name="btn_ok">확인</string>
 </resources>

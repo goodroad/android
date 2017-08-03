@@ -16,9 +16,13 @@
         android:layout_marginBottom="100px"
         android:src="@mipmap/loading_logo"
         android:layout_gravity="center"/>
-    <ImageView android:id="@+id/splash_copyright" android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+    <TextView android:id="@+id/splash_copyright"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
         android:layout_marginTop="-100px"
-        android:src="@mipmap/loading_copyright"
+        android:text="@string/copyright"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/copyright_text_font_size"
         android:layout_gravity="center"/>
 </LinearLayout>

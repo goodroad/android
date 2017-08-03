@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="60dp"
     android:orientation="vertical"
     android:background="@color/report_bg"
@@ -21,18 +22,18 @@
         android:layout_marginTop="@dimen/map_height_plus_padding">
 
         <ScrollView
-            android:paddingBottom="40dp"
+            android:paddingBottom="50dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <LinearLayout
+                android:layout_marginBottom="50dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="100dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:background="@color/report_layout_bg"
-                    android:id="@+id/layout_info"
+                    android:id="@+id/layout_report_addr_and_time"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="5dp"
@@ -149,22 +150,64 @@
                     android:layout_width="wrap_content"
                     android:layout_gravity="end"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/layout_info"
+                    android:layout_below="@+id/layout_report_addr_and_time"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="10dp"
                     android:textColor="@color/colorGray"
-                    android:id="@+id/textView9"
+                    android:id="@+id/tv_i_saw_roadkill"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="30dp" />
 
                 <RelativeLayout
+                    android:id="@+id/layout_saved_group_species"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_saved_group"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/saved_group_species_font_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_saved_group_species_comma"
+                            android:text=", "
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/saved_group_species_font_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_saved_species"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/saved_species_text_view"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/saved_group_species_font_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_saved_group_species_end_string"
+                            android:text="@string/saved_end_string"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/saved_group_species_font_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@id/layout_info"
+                    android:layout_below="@id/layout_report_addr_and_time"
                     android:layout_marginTop="20dp"
                     android:background="@color/report_layout_bg"
-                    android:id="@+id/layout_detail">
+                    android:id="@+id/layout_btn_open_select_group_type">
 
                     <TextView
                         android:text="@string/report_more"
@@ -174,7 +217,7 @@
                         android:layout_marginStart="10dp"
                         android:textStyle="bold"
                         android:textColor="@color/report_text"
-                        android:id="@+id/textView10"
+                        android:id="@+id/tv_btn_open_select_group_type"
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="10dp" />
@@ -183,7 +226,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         app:srcCompat="@mipmap/detail_btn_open"
-                        android:id="@+id/imageView5"
+                        android:id="@+id/iv_btn_open_select_group_type"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="30dp"
                         android:layout_centerVertical="true"
@@ -192,41 +235,37 @@
 
                 </RelativeLayout>
 
-
-                <!--<android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/recyclerview"
-                    android:layout_below="@id/layout_detail"
-                    android:layout_above="@+id/button_report"
-                    android:background="@color/report_layout_bg" />-->
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:layout_below="@id/layout_detail"
-                    android:layout_above="@+id/button_report"
+                    android:layout_below="@id/layout_btn_open_select_group_type"
+                    android:layout_above="@+id/btn_report"
+                    android:paddingBottom="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@color/report_layout_bg"
                     android:visibility="gone"
-                    android:id="@+id/layout_select">
+                    android:id="@+id/layout_select_group_type">
 
                     <RelativeLayout
-                        android:id="@+id/layout6"
+                        android:id="@+id/layout_group_type_1"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
                         android:layout_weight="1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent">
 
                         <ImageView
-                            app:srcCompat="@mipmap/part_01_select"
-                            android:id="@+id/imageView6"
+                            app:srcCompat="@mipmap/group_01"
+                            android:id="@+id/iv_group_type_01"
+                            android:layout_centerHorizontal="true"
                             android:layout_width="wrap_content"
                             android:layout_height="60dp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/imageView6"
+                            android:layout_below="@id/iv_group_type_01"
                             android:textColor="@color/report_black"
                             android:text="포유류"
                             android:gravity="center_horizontal" />
@@ -234,21 +273,23 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/layout7"
+                        android:id="@+id/layout_group_type_2"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
                         android:layout_weight="1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="60dp"
-                            app:srcCompat="@mipmap/part_02"
-                            android:id="@+id/imageView7"
-                            android:layout_weight="1" />
+                            android:layout_centerHorizontal="true"
+                            app:srcCompat="@mipmap/group_02"
+                            android:id="@+id/iv_group_type_02" />
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/imageView7"
+                            android:layout_below="@id/iv_group_type_02"
                             android:textColor="@color/report_black"
                             android:text="양서류"
                             android:gravity="center_horizontal" />
@@ -257,21 +298,23 @@
 
 
                     <RelativeLayout
-                        android:id="@+id/layout8"
+                        android:id="@+id/layout_group_type_3"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
                         android:layout_weight="1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent">
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="60dp"
-                            app:srcCompat="@mipmap/part_03"
-                            android:id="@+id/imageView8"
-                            android:layout_weight="1" />
+                            android:layout_centerHorizontal="true"
+                            app:srcCompat="@mipmap/group_03"
+                            android:id="@+id/iv_group_type_03" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/imageView8"
+                            android:layout_below="@id/iv_group_type_03"
                             android:textColor="@color/report_black"
                             android:text="조류"
                             android:gravity="center_horizontal" />
@@ -280,56 +323,28 @@
 
 
                     <RelativeLayout
-                        android:id="@+id/layout9"
+                        android:id="@+id/layout_group_type_4"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
                         android:layout_weight="1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent">
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="60dp"
-                            app:srcCompat="@mipmap/part_04"
-                            android:id="@+id/imageView9"
-                            android:layout_weight="1" />
+                            android:layout_centerHorizontal="true"
+                            app:srcCompat="@mipmap/group_04"
+                            android:id="@+id/iv_group_type_04" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/imageView9"
+                            android:layout_below="@id/iv_group_type_04"
                             android:textColor="@color/report_black"
                             android:text="파충류"
                             android:gravity="center_horizontal" />
-
                     </RelativeLayout>
-
                 </LinearLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/camera_caution_text"
-                    android:layout_above="@id/button_report"
-                    android:id="@+id/layout"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:id="@+id/detail_close"
-                        android:src="@mipmap/close_screen"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:text="@string/report_detail"
-                        android:gravity="center"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-
-                </RelativeLayout>
             </LinearLayout>
         </ScrollView>
 
@@ -338,7 +353,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:id="@+id/button_report"
+            android:id="@id/btn_report"
             android:layout_alignParentBottom="true"
             android:background="@color/report_text"
             android:layout_alignParentLeft="true" />

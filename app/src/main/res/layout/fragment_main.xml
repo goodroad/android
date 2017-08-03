@@ -11,13 +11,15 @@
         android:scaleType="fitXY" />
 
     <ImageButton
-        android:layout_width="100dp"
+        android:layout_width="130dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
         android:id="@+id/imageButton_camera"
-        android:background="@mipmap/btn_camera"
-        android:layout_height="135dp" />
+        android:src="@mipmap/btn_camera"
+        android:padding="10dp"
+        android:background="@drawable/click_effect"
+        android:layout_height="155dp" />
 
     <ImageView
         app:srcCompat="@mipmap/image_caution"

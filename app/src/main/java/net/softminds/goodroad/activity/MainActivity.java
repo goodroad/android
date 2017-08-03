@@ -29,18 +29,17 @@ import android.widget.TextView;
 import net.softminds.goodroad.R;
 import net.softminds.goodroad.adapter.CustomExpandableListAdapter;
 import net.softminds.goodroad.fragment.MainFragment;
+import net.softminds.goodroad.fragment.ReportCompleteFragment;
 import net.softminds.goodroad.model.ExpandableMenuListItem;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Created by hjlee on 2017-07-30.
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, ReportCompleteFragment.OnFragmentInteractionListener {
 
     private static final String TAG = MainActivity.class.getName();
     DrawerLayout mDrawerLayout;

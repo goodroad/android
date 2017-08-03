@@ -1,16 +1,32 @@
 package net.softminds.goodroad.util;
 
+import android.net.http.AndroidHttpClient;
 import android.util.Log;
 
 import net.softminds.goodroad.common.Definitions;
+import net.softminds.goodroad.exception.HttpResponseCodeException;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpException;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.HttpResponseException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Method;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -99,6 +115,72 @@ public class SMHttpClient {
             }
         }
         return ret;
+    }
+
+    public static String postFile(final String url, final JSONObject headers, final JSONObject params) throws Exception {
+        return connect(url, headers, params, Method.POST_FILE);
+    }
+
+    private static String connect(final String url, final JSONObject headers, final JSONObject params, final Method method) throws Exception {
+        URL myUrl = new URL(url);
+
+        InputStream inputStream = null;
+        HttpClient httpClient = AndroidHttpClient.newInstance("Android");
+        HttpPost httpPost = new HttpPost(String.valueOf(myUrl));
+
+        switch (method) {
+            case POST_FILE:
+                File file = (File) params.get("file");
+                MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+                builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+                builder.addPart("file", new FileBody(file));
+                httpPost.setEntity(builder.build());
+                break;
+        }
+        HttpResponse httpResponse = httpClient.execute(httpPost);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        inputStream = httpEntity.getContent();
+        String ret = readIt(inputStream);
+
+        if( httpResponse.getStatusLine().getStatusCode() != 200 ) {
+            Log.e(TAG,ret);
+            throw new HttpResponseCodeException(httpResponse.getStatusLine());
+        }
+        Log.d(TAG,ret);
+
+        return ret;
+
+    }
+
+    private static String readIt(InputStream stream) throws IOException, JSONException {
+        BufferedReader rd = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+        String line;
+        StringBuilder response = new StringBuilder();
+        while ((line = rd.readLine()) != null) {
+            response.append(line);
+        }
+//        try {
+//            return new JSONObject(response.toString());
+            Log.d(TAG,response.toString());
+            return response.toString();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//            throw e;
+//        }
+    }
+
+    enum Method {
+        GET(0), POST(1), PUT(2), DELETE(3), POST_FILE(4);
+
+        private final int type;
+
+        Method(final int type) {
+            this.type = type;
+        }
+
+        public int getMethod() {
+            return this.type;
+        }
     }
 }
 
