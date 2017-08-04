@@ -35,7 +35,6 @@
             android:dividerHeight="@dimen/divider_height"
             android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"/>
     </android.support.design.widget.NavigationView>
-
     <LinearLayout
         android:id="@+id/layout_select_group_and_species_type_view"
         android:orientation="vertical"
@@ -243,5 +242,23 @@
             </View>
         </RelativeLayout>
     </LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/layout_sending"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:textColor="@color/colorBlack"
+        android:background="@color/report_sending_layout_bg"
+        android:gravity="center"
+        android:visibility="gone" >
+        <ProgressBar
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@color/colorBlack"
+            android:text="@string/sending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

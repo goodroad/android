@@ -24,4 +24,5 @@
     <color name="colorClicked">#55999999</color>
     <color name="colorLightGray">#e9e9e9</color>
     <color name="colorBarTitleText">#ecc314</color>
+    <color name="report_sending_layout_bg">#DDFFFFFF</color>
 </resources>

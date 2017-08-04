@@ -1,5 +1,6 @@
 package net.softminds.goodroad.exception;
 
+import org.apache.http.ProtocolVersion;
 import org.apache.http.StatusLine;
 
 /**
@@ -12,6 +13,37 @@ public class HttpResponseCodeException extends Exception {
         mStatusLine = status;
     }
 
+    private class HttpStatusLine implements StatusLine {
+
+        ProtocolVersion protocolVersion;
+        int statusCode;
+        String reasonPhrase;
+        public HttpStatusLine(ProtocolVersion protocolVersion, int statusCode, String reasonPhrase) {
+            this.protocolVersion = protocolVersion;
+            this.statusCode = statusCode;
+            this.reasonPhrase = reasonPhrase;
+        }
+
+        @Override
+        public ProtocolVersion getProtocolVersion() {
+            return null;
+        }
+
+        @Override
+        public int getStatusCode() {
+            return 0;
+        }
+
+        @Override
+        public String getReasonPhrase() {
+            return null;
+        }
+    }
+
+    public HttpResponseCodeException(ProtocolVersion protocolVersion, int statusCode, String reasonPhrase) {
+        mStatusLine = new HttpStatusLine(protocolVersion,statusCode,reasonPhrase);
+    }
+
     public StatusLine getmStatusLine() {
         return mStatusLine;
     }
@@ -20,4 +52,9 @@ public class HttpResponseCodeException extends Exception {
         this.mStatusLine = mStatusLine;
     }
 
+    @Override
+    public String getMessage() {
+        String ret = mStatusLine.toString() + "(" + mStatusLine.getStatusCode() + ")";
+        return ret;
+    }
 }

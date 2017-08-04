@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:background="@color/report_bg"
     tools:context="net.softminds.goodroad.fragment.ReportFragment">
-
     <RelativeLayout
         android:id="@+id/map_view"
         android:padding="@dimen/map_padding"

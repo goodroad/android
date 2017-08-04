@@ -9,6 +9,7 @@ import net.softminds.goodroad.exception.HttpResponseCodeException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
+import org.apache.http.ProtocolVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.methods.HttpPost;
@@ -41,11 +42,11 @@ import java.util.Map;
 public class SMHttpClient {
     private static final String TAG = SMHttpClient.class.getName();
 
-    public static JSONObject execute(String method, String url, String pathVariable, String query, String content ) {
+    public static JSONObject execute(String method, String url, String pathVariable, String query, String content ) throws Exception {
         return execute( method, url, pathVariable, query, content, true );
     }
 
-    public static JSONObject execute(String method, String urlString, String pathVariable, String query, String content, boolean retryOnFail ) {
+    public static JSONObject execute(String method, String urlString, String pathVariable, String query, String content, boolean retryOnFail ) throws Exception {
         HttpURLConnection conn = null;
         JSONObject ret = null;
         if( pathVariable != null ) {
@@ -104,6 +105,8 @@ public class SMHttpClient {
                 }
                 Log.d(TAG,"Response : " + sb.toString());
                 ret = new JSONObject(sb.toString());
+            } else {
+                throw new HttpResponseCodeException(new ProtocolVersion("http",1,1),conn.getResponseCode(),conn.getResponseMessage());
             }
         }catch (ConnectException e) {
             e.printStackTrace();

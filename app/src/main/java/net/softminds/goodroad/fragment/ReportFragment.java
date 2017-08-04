@@ -86,6 +86,9 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     private LinearLayout mLinearLayoutSelectGroupType;
     private RelativeLayout mRelativeLayoutBtnOpenSelectGroupType;
     private LinearLayout mLinearLayoutSelectGroupTypePanel;
+
+    private LinearLayout mLinearLayoutSending;
+
     private RelativeLayout mRelativeLayoutGroupType1;
     private RelativeLayout mRelativeLayoutGroupType2;
     private RelativeLayout mRelativeLayoutGroupType3;
@@ -232,6 +235,8 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP ) {
 
+                    if( mLinearLayoutSending.getVisibility() == View.VISIBLE ) return true;
+
                     if( mLinearLayoutSelectGroupTypePanel.getVisibility() == View.VISIBLE ) {
                         closeSelectGroupPanel();
 
@@ -331,6 +336,8 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             public boolean onKey(View view, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP ) {
 
+                    if( mLinearLayoutSending.getVisibility() == View.VISIBLE ) return true;
+
                     if (mLinearLayoutSelectGroupTypePanel.getVisibility() == View.VISIBLE) {
                         closeSelectGroupPanel();
                         return true;
@@ -341,6 +348,8 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
                 return false;
             }
         });
+
+        mLinearLayoutSending = (LinearLayout) getActivity().findViewById(R.id.layout_sending);
 
         mRelativeLayoutSavedGroupSpecies = (RelativeLayout) getView().findViewById(R.id.layout_saved_group_species);
         mTvSavedGroup = (TextView) getView().findViewById(R.id.tv_saved_group);
@@ -452,7 +461,6 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
         createMapView();
     }
-
 
     private void invalidateButtons() {
         if( isDetached() || getHost() == null ) return;
@@ -608,10 +616,10 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         mThreadLocation = new Thread(new Runnable() {
             @Override
             public void run() {
-                JSONObject addr = SMHttpClient.execute("GET","https://apis.daum.net/local/geo/coord2addr",null,
-                        "apikey=" + Definitions.DAUM_REST_API_KEY + "&longitude=" + mapPointGeo.longitude + "&latitude=" + mapPointGeo.latitude + "&inputCoordSystem=WGS84&output=json",null);
 
                 try {
+                    JSONObject addr = SMHttpClient.execute("GET","https://apis.daum.net/local/geo/coord2addr",null,
+                            "apikey=" + Definitions.DAUM_REST_API_KEY + "&longitude=" + mapPointGeo.longitude + "&latitude=" + mapPointGeo.latitude + "&inputCoordSystem=WGS84&output=json",null);
                     if( addr != null ) {
                         final String fullName = addr.getString("fullName");
                         getActivity().runOnUiThread(new Runnable() {
@@ -622,7 +630,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
                             }
                         });
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
                     mThreadLocation = null;
@@ -816,16 +824,16 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     }
 
 
-    StatusLine mStatusLine = null;
+
+    Exception mReportException = null;
     private class UploadImage extends AsyncTask<JSONObject, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(JSONObject... params) {
             try {
-                mStatusLine = null;
+                mReportException = null;
                 SMHttpClient.postFile(URL_FILE, null, params[0]);
-            } catch (HttpResponseCodeException e) {
-                mStatusLine = e.getmStatusLine();
             } catch (Exception e) {
+                mReportException = e;
                 e.printStackTrace();
             }
             return null;
@@ -835,8 +843,9 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
             try {
-                if( mStatusLine != null ) {
-                    Toast.makeText(getContext(), "오류가 발생하였습니다. " + mStatusLine.getReasonPhrase(), Toast.LENGTH_SHORT).show();
+                if( mReportException != null ) {
+                    Toast.makeText(getContext(), "오류가 발생하였습니다.\n" + mReportException.getMessage(), Toast.LENGTH_LONG).show();
+                    mLinearLayoutSending.setVisibility(View.GONE);
                     return;
                 }
                 JSONObject params = new JSONObject();
@@ -860,13 +869,25 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         @Override
         protected JSONObject doInBackground(JSONObject... params) {
             Log.d(TAG, "length : " + params.length);
-            SMHttpClient.execute("POST",URL,null,null,params[0].toString());
+            mReportException = null;
+            try {
+                SMHttpClient.execute("POST",URL,null,null,params[0].toString());
+            } catch (Exception e) {
+                mReportException = e;
+                e.printStackTrace();
+            }
             return null;
         }
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
+            if( mReportException != null ) {
+                Toast.makeText(getContext(), "오류가 발생하였습니다.\n" + mReportException.getMessage(), Toast.LENGTH_LONG).show();
+                mLinearLayoutSending.setVisibility(View.GONE);
+                return;
+            }
+            mLinearLayoutSending.setVisibility(View.GONE);
             Toast.makeText(getContext(), "신고 되었습니다.", Toast.LENGTH_SHORT).show();
             openCompleteFragment();
         }
@@ -875,6 +896,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
 
     private void report() throws JSONException {
+        mLinearLayoutSending.setVisibility(View.VISIBLE);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("file", mFile);
 
