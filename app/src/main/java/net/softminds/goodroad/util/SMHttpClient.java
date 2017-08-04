@@ -239,11 +239,9 @@ public class SMHttpClient {
         GET(0), POST(1), PUT(2), DELETE(3), POST_FILE(4);
 
         private final int type;
-
         Method(final int type) {
             this.type = type;
         }
-
         public int getMethod() {
             return this.type;
         }
