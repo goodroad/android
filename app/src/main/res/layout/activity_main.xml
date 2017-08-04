@@ -258,6 +258,13 @@
         <TextView
             android:textColor="@color/colorBlack"
             android:text="@string/sending"
+            android:textSize="@dimen/sending_font_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_sending_info"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="@dimen/sending_info_font_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

@@ -22,4 +22,6 @@
     <dimen name="map_height_plus_padding">190dp</dimen>
     <dimen name="saved_group_species_font_size">15sp</dimen>
     <dimen name="copyright_text_font_size">18sp</dimen>
+    <dimen name="sending_info_font_size">15sp</dimen>
+    <dimen name="sending_font_size">18sp</dimen>
 </resources>

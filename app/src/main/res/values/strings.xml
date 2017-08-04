@@ -86,4 +86,7 @@
     <string name="thank_you_for_report">신고해주셔서\n감사합니다</string>
     <string name="btn_ok">확인</string>
     <string name="sending">전송중입니다...</string>
+    <string name="sending_step_1">전송 준비 중...</string>
+    <string name="sending_step_2">이미지 전송 중...</string>
+    <string name="sending_step_3">내용 전송 중...</string>
 </resources>

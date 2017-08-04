@@ -88,6 +88,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     private LinearLayout mLinearLayoutSelectGroupTypePanel;
 
     private LinearLayout mLinearLayoutSending;
+    private TextView mTvSendingInfo;
 
     private RelativeLayout mRelativeLayoutGroupType1;
     private RelativeLayout mRelativeLayoutGroupType2;
@@ -328,6 +329,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             }
         });
 
+        mTvSendingInfo = (TextView) getActivity().findViewById(R.id.tv_sending_info);
         mEditTextSpecies = (EditText) getActivity().findViewById(R.id.et_species);
         mIbClearSpecies = (ImageButton) getActivity().findViewById(R.id.ib_clear_species);
 
@@ -830,6 +832,12 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         @Override
         protected JSONObject doInBackground(JSONObject... params) {
             try {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTvSendingInfo.setText(SENDING_STEP2);
+                    }
+                });
                 mReportException = null;
                 SMHttpClient.postFile(URL_FILE, null, params[0]);
             } catch (Exception e) {
@@ -845,7 +853,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             try {
                 if( mReportException != null ) {
                     Toast.makeText(getContext(), "오류가 발생하였습니다.\n" + mReportException.getMessage(), Toast.LENGTH_LONG).show();
-                    mLinearLayoutSending.setVisibility(View.GONE);
+                    hideSendingScreen();
                     return;
                 }
                 JSONObject params = new JSONObject();
@@ -869,6 +877,13 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         @Override
         protected JSONObject doInBackground(JSONObject... params) {
             Log.d(TAG, "length : " + params.length);
+            getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                mTvSendingInfo.setText(SENDING_STEP3);
+                                            }
+                                        });
+
             mReportException = null;
             try {
                 SMHttpClient.execute("POST",URL,null,null,params[0].toString());
@@ -894,13 +909,30 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     }
 
 
+    private String SENDING_STEP1;
+    private String SENDING_STEP2;
+    private String SENDING_STEP3;
 
     private void report() throws JSONException {
-        mLinearLayoutSending.setVisibility(View.VISIBLE);
+        SENDING_STEP1 = getString(R.string.sending_step_1);
+        SENDING_STEP2 = getString(R.string.sending_step_2);
+        SENDING_STEP3 = getString(R.string.sending_step_3);
+        showSendingScreen();
+        mTvSendingInfo.setText(SENDING_STEP1);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("file", mFile);
 
         UploadImage uploadImage = new UploadImage();
         uploadImage.execute(jsonObject);
+    }
+
+    private void showSendingScreen() {
+        mLinearLayoutSending.setVisibility(View.VISIBLE);
+        mBtnReport.setEnabled(false);
+    }
+
+    private void hideSendingScreen() {
+        mLinearLayoutSending.setVisibility(View.GONE);
+        mBtnReport.setEnabled(true);
     }
 }
