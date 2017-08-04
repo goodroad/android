@@ -289,18 +289,15 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         bottomDown.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                Log.d(TAG,"onAnimationStart");
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 mLinearLayoutSelectGroupTypePanel.setVisibility(View.GONE);
-                Log.d(TAG,"onAnimationEnd");
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                Log.d(TAG,"onAnimationRepeat");
             }
         });
         mLinearLayoutSelectGroupTypePanel.startAnimation(bottomDown);
@@ -916,7 +913,6 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
         @Override
         protected JSONObject doInBackground(JSONObject... params) {
-            Log.d(TAG, "length : " + params.length);
             getActivity().runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
