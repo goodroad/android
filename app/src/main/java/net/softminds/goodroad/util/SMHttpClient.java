@@ -209,14 +209,8 @@ public class SMHttpClient {
         while ((line = rd.readLine()) != null) {
             response.append(line);
         }
-//        try {
-//            return new JSONObject(response.toString());
-            Log.d(TAG,response.toString());
-            return response.toString();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//            throw e;
-//        }
+        Log.d(TAG,response.toString());
+        return response.toString();
     }
 
     private static void setCommonHeaders(HttpURLConnection conn) {
