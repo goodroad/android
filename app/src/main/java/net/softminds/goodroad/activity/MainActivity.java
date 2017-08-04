@@ -21,8 +21,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -42,14 +44,31 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnFragmentInteractionListener, ReportCompleteFragment.OnFragmentInteractionListener {
 
     private static final String TAG = MainActivity.class.getName();
-    DrawerLayout mDrawerLayout;
-    NavigationView mNavigationView;
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
     private ExpandableListView mExpandableListView;
     private CustomExpandableListAdapter mExpandableListAdapter;
     private List<ExpandableMenuListItem> mExpandableListMenus;
 
     public static Location mCurrentLocation = null;
     private LocationManager mLocationManager = null;
+
+
+    static public interface OnLocationChangeListener {
+        void onLocationChanged(final Location location);
+    }
+
+    public static OnLocationChangeListener getLocationChangeListner() {
+        return mLocationChangeListner;
+    }
+
+    public static void setLocationChangeListner(OnLocationChangeListener locationChangeListner) {
+        mLocationChangeListner = locationChangeListner;
+    }
+
+    private static OnLocationChangeListener mLocationChangeListner;
+
+
 
 
     private final LocationListener mLocationListener = new LocationListener() {
@@ -59,6 +78,9 @@ public class MainActivity extends AppCompatActivity
             if (mCurrentLocation == null) {
                 Log.d(TAG, "mCurrentLocation is null");
                 mCurrentLocation = location;
+                if( mLocationChangeListner != null ) {
+                    mLocationChangeListner.onLocationChanged(location);
+                }
             } else {
                 Log.d(TAG, "mCurrentLocation is not null");
             }
@@ -136,7 +158,6 @@ public class MainActivity extends AppCompatActivity
         }
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 10000, 100, mLocationListener);
-
     }
 
     public void setToolbarTitle(int resource) {
@@ -145,13 +166,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void addDrawerItems() {
+        Log.d(TAG,"addDrawerItems");
         mExpandableListAdapter = new CustomExpandableListAdapter(this, mExpandableListMenus);
         mExpandableListView.setAdapter(mExpandableListAdapter);
         mExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
+
                 if( mExpandableListAdapter.getChildrenCount(groupPosition) == 0 ) {
                     openMenu(groupPosition,-1);
+                    Log.d(TAG,"CLOSEDRAWER #1");
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                 } else {
                     mExpandableListAdapter.rotate(groupPosition);
@@ -162,8 +186,10 @@ public class MainActivity extends AppCompatActivity
         mExpandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
+                Log.d(TAG,"mExpandableListView setOnGroupCollapseListener : " + groupPosition);
                 if( mExpandableListAdapter.getChildrenCount(groupPosition) == 0 ) {
                     openMenu(groupPosition,-1);
+                    Log.d(TAG,"CLOSEDRAWER #2");
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                 } else {
                     mExpandableListAdapter.rotate(groupPosition);
@@ -175,7 +201,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
+                Log.d(TAG,"mExpandableListView setOnChildClickListener : " + groupPosition + "-" + childPosition);
                 openMenu(groupPosition,childPosition);
+                Log.d(TAG,"CLOSEDRAWER #3");
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 return false;
             }
@@ -252,6 +280,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        Log.d(TAG,"CLOSEDRAWER #5");
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -268,6 +297,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
+                        Log.d(TAG,"CLOSEDRAWER #6");
                         mDrawerLayout.closeDrawers();
                         return true;
                     }

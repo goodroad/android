@@ -147,7 +147,7 @@ public class MainFragment extends Fragment {
 
         if( data == null ) return;
 
-        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
 
         ft.replace(R.id.layout_content, ReportFragment.getInstance(data.getData(),getContext().getContentResolver()));
         ft.commit();

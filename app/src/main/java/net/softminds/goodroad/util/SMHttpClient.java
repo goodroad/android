@@ -144,29 +144,31 @@ public class SMHttpClient {
 
     private static String connect(final String url, final JSONObject headers, final JSONObject params, final Method method) throws Exception {
         URL myUrl = new URL(url);
+        String ret = "";
 
         Log.d(TAG,"Request URL : " + url);
         InputStream inputStream = null;
         HttpClient httpClient = AndroidHttpClient.newInstance("Android");
-        HttpPost httpPost = new HttpPost(String.valueOf(myUrl));
+        try {
+            HttpPost httpPost = new HttpPost(String.valueOf(myUrl));
 
-        switch (method) {
-            case POST_FILE:
-                File file = (File) params.get("file");
-                MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-                builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
-                builder.addPart("file", new FileBody(file));
-                httpPost.setEntity(builder.build());
-                break;
-        }
-        HttpResponse httpResponse = httpClient.execute(httpPost);
-        HttpEntity httpEntity = httpResponse.getEntity();
-        inputStream = httpEntity.getContent();
-        String ret = readIt(inputStream);
-        Log.d(TAG,"Response body : " + ret);
-        Log.d(TAG,"Response code : " + httpResponse.getStatusLine().getStatusCode());
+            switch (method) {
+                case POST_FILE:
+                    File file = (File) params.get("file");
+                    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+                    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+                    builder.addPart("file", new FileBody(file));
+                    httpPost.setEntity(builder.build());
+                    break;
+            }
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+            ret = readIt(inputStream);
+            Log.d(TAG, "Response body : " + ret);
+            Log.d(TAG, "Response code : " + httpResponse.getStatusLine().getStatusCode());
 
-        int status = httpResponse.getStatusLine().getStatusCode();
+            int status = httpResponse.getStatusLine().getStatusCode();
 //        if( httpResponse.getStatusLine().getStatusCode() == 301 || httpResponse.getStatusLine().getStatusCode() == 302 ) {
 //            String location = null;
 //            org.apache.http.Header[] responseHeaders = httpResponse.getAllHeaders();
@@ -184,12 +186,18 @@ public class SMHttpClient {
 //            return connect(location, headers, params, method);
 //        }
 
-        if( status != 200 && status != 302 ) {
-            Log.e(TAG,ret);
-            throw new HttpResponseCodeException(httpResponse.getStatusLine());
+            if (status != 200 && status != 302) {
+                Log.e(TAG, ret);
+                throw new HttpResponseCodeException(httpResponse.getStatusLine());
+            }
+            Log.d(TAG, ret);
+        } catch ( Exception e ) {
+            throw e;
+        } finally {
+            if( httpClient != null ) {
+                httpClient.getConnectionManager().shutdown();
+            }
         }
-        Log.d(TAG,ret);
-
         return ret;
 
     }

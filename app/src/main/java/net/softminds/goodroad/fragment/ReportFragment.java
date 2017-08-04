@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.location.Location;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -16,6 +17,8 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -63,7 +66,7 @@ import java.text.SimpleDateFormat;
  * Use the {@link ReportFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapView.OpenAPIKeyAuthenticationResultListener, net.daum.mf.map.api.MapView.MapViewEventListener {
+public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapView.OpenAPIKeyAuthenticationResultListener, net.daum.mf.map.api.MapView.MapViewEventListener, MainActivity.OnLocationChangeListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -90,6 +93,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
     private LinearLayout mLinearLayoutSending;
     private TextView mTvSendingInfo;
+    private int mLocationUpdateReceived = 0;
 
     private RelativeLayout mRelativeLayoutGroupType1;
     private RelativeLayout mRelativeLayoutGroupType2;
@@ -116,7 +120,6 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     private ImageView mIvCloseSelectGroupPanel;
     private View mView;
     private String mSelectedGroup = "";
-    private String mSelectedSpecies = "";
     private Button mBtnSave = null;
     private Button mBtnReport = null;
     private EditText mEditTextSpecies;
@@ -226,6 +229,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ((MainActivity)getActivity()).setToolbarTitle(R.string.app_main_activity_title_for_report);
+        MainActivity.setLocationChangeListner(this);
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_report, container, false);
         mView.setFocusableInTouchMode(true);
@@ -237,6 +241,11 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP ) {
+                    DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+                    if (drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                        return true;
+                    }
 
                     if( mLinearLayoutSending.getVisibility() == View.VISIBLE ) return true;
 
@@ -280,17 +289,18 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         bottomDown.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                Log.d(TAG,"onAnimationStart");
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 mLinearLayoutSelectGroupTypePanel.setVisibility(View.GONE);
+                Log.d(TAG,"onAnimationEnd");
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
+                Log.d(TAG,"onAnimationRepeat");
             }
         });
         mLinearLayoutSelectGroupTypePanel.startAnimation(bottomDown);
@@ -310,13 +320,15 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mSavedSpecies = "";
+        mSavedGroup = "";
         save(mImageDataUri,mContentResolver);
 
         mTvAddr = (TextView) getView().findViewById(R.id.tv_addr);
         mTvTime = (TextView) getView().findViewById(R.id.tv_time);
         mIvOpenSelectGroupType = (ImageView) getView().findViewById(R.id.iv_btn_open_select_group_type);
         mLinearLayoutSelectGroupType = (LinearLayout) getView().findViewById(R.id.layout_select_group_type);
+
         mRelativeLayoutBtnOpenSelectGroupType = (RelativeLayout) getView().findViewById(R.id.layout_btn_open_select_group_type);
         mRelativeLayoutBtnOpenSelectGroupType.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -332,8 +344,8 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         });
 
         mTvSendingInfo = (TextView) getActivity().findViewById(R.id.tv_sending_info);
-        mEditTextSpecies = (EditText) getActivity().findViewById(R.id.et_species);
-        mIbClearSpecies = (ImageButton) getActivity().findViewById(R.id.ib_clear_species);
+        mEditTextSpecies = (EditText) getView().findViewById(R.id.et_species);
+        mIbClearSpecies = (ImageButton) getView().findViewById(R.id.ib_clear_species);
 
         mEditTextSpecies.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -386,7 +398,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             }
         });
 
-        mBtnSave = (Button) getActivity().findViewById(R.id.btn_save);
+        mBtnSave = (Button) getView().findViewById(R.id.btn_save);
         mBtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -413,10 +425,11 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             }
         });
 
-        mRelativeLayoutSpeciesButtons = (RelativeLayout) getActivity().findViewById(R.id.layout_species_buttons);
+        mRelativeLayoutSpeciesButtons = (RelativeLayout) getView().findViewById(R.id.layout_species_buttons);
 
         mRelativeLayoutBtnOpenSelectGroupType = (RelativeLayout) getView().findViewById(R.id.layout_btn_open_select_group_type);
-        mLinearLayoutSelectGroupTypePanel = (LinearLayout) getActivity().findViewById(R.id.layout_select_group_and_species_type_view);
+        mLinearLayoutSelectGroupTypePanel = (LinearLayout) getView().findViewById(R.id.layout_select_group_and_species_type_view);
+
         mRelativeLayoutGroupType1 = (RelativeLayout) getView().findViewById(R.id.layout_group_type_1);
         mRelativeLayoutGroupType2 = (RelativeLayout) getView().findViewById(R.id.layout_group_type_2);
         mRelativeLayoutGroupType3 = (RelativeLayout) getView().findViewById(R.id.layout_group_type_3);
@@ -427,10 +440,10 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         mRelativeLayoutGroupType3.setOnClickListener(new OnSelectGroupClickListener(getString(R.string.report_group3)));
         mRelativeLayoutGroupType4.setOnClickListener(new OnSelectGroupClickListener(getString(R.string.report_group4)));
 
-        mRelativeLayoutGroupType1OnPop = (RelativeLayout) getActivity().findViewById(R.id.layout_group_type_1_on_pop);
-        mRelativeLayoutGroupType2OnPop = (RelativeLayout) getActivity().findViewById(R.id.layout_group_type_2_on_pop);
-        mRelativeLayoutGroupType3OnPop = (RelativeLayout) getActivity().findViewById(R.id.layout_group_type_3_on_pop);
-        mRelativeLayoutGroupType4OnPop = (RelativeLayout) getActivity().findViewById(R.id.layout_group_type_4_on_pop);
+        mRelativeLayoutGroupType1OnPop = (RelativeLayout) getView().findViewById(R.id.layout_group_type_1_on_pop);
+        mRelativeLayoutGroupType2OnPop = (RelativeLayout) getView().findViewById(R.id.layout_group_type_2_on_pop);
+        mRelativeLayoutGroupType3OnPop = (RelativeLayout) getView().findViewById(R.id.layout_group_type_3_on_pop);
+        mRelativeLayoutGroupType4OnPop = (RelativeLayout) getView().findViewById(R.id.layout_group_type_4_on_pop);
 
         mRelativeLayoutGroupType1OnPop.setOnClickListener(new OnSelectGroupClickListener(getString(R.string.report_group1)));
         mRelativeLayoutGroupType2OnPop.setOnClickListener(new OnSelectGroupClickListener(getString(R.string.report_group2)));
@@ -441,12 +454,12 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         mIvGroup2 = (ImageView) getView().findViewById(R.id.iv_group_type_02);
         mIvGroup3 = (ImageView) getView().findViewById(R.id.iv_group_type_03);
         mIvGroup4 = (ImageView) getView().findViewById(R.id.iv_group_type_04);
-        mIvGroup1OnPop = (ImageView) getActivity().findViewById(R.id.iv_group_type_01_on_pop);
-        mIvGroup2OnPop = (ImageView) getActivity().findViewById(R.id.iv_group_type_02_on_pop);
-        mIvGroup3OnPop = (ImageView) getActivity().findViewById(R.id.iv_group_type_03_on_pop);
-        mIvGroup4OnPop = (ImageView) getActivity().findViewById(R.id.iv_group_type_04_on_pop);
+        mIvGroup1OnPop = (ImageView) getView().findViewById(R.id.iv_group_type_01_on_pop);
+        mIvGroup2OnPop = (ImageView) getView().findViewById(R.id.iv_group_type_02_on_pop);
+        mIvGroup3OnPop = (ImageView) getView().findViewById(R.id.iv_group_type_03_on_pop);
+        mIvGroup4OnPop = (ImageView) getView().findViewById(R.id.iv_group_type_04_on_pop);
 
-        mIvCloseSelectGroupPanel = (ImageView) getActivity().findViewById(R.id.iv_btn_close_select_group_type);
+        mIvCloseSelectGroupPanel = (ImageView) getView().findViewById(R.id.iv_btn_close_select_group_type);
 
         mIvCloseSelectGroupPanel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -528,6 +541,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     @Override
     public void onDetach() {
         super.onDetach();
+
         mListener = null;
     }
 
@@ -536,7 +550,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         super.onDestroyView();
 
         Log.d(TAG,"onDestroyView");
-
+        MainActivity.setLocationChangeListner(null);
         mBitmap.recycle();
         mBitmap = null;
         ((BitmapDrawable) mIvImageReport.getDrawable()).getBitmap().recycle();
@@ -555,6 +569,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         //mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
         if(MainActivity.mCurrentLocation != null ) {
             mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(MainActivity.mCurrentLocation.getLatitude(), MainActivity.mCurrentLocation.getLongitude()), 2, true);
+            mLocationUpdateReceived++;
         }
     }
 
@@ -649,6 +664,16 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         Log.i(TAG, String.format("MapView onMapViewZoomLevelChanged (%d)", zoomLevel));
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        if( mLocationUpdateReceived == 0 && MainActivity.mCurrentLocation != null ) {
+            if( mMapView != null ) {
+                mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(MainActivity.mCurrentLocation.getLatitude(), MainActivity.mCurrentLocation.getLongitude()), 2, true);
+            }
+            mLocationUpdateReceived++;
+        }
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -678,6 +703,21 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             if( mLinearLayoutSelectGroupTypePanel.getVisibility() != View.VISIBLE) {
                 Animation bottomUp = AnimationUtils.loadAnimation(getContext(),
                         R.anim.bottom_up);
+                bottomUp.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
                 mLinearLayoutSelectGroupTypePanel.startAnimation(bottomUp);
                 invalidateButtons();
                 mLinearLayoutSelectGroupTypePanel.setVisibility(View.VISIBLE);
@@ -779,15 +819,12 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
             if( lastLineFirstButton != null ) {
                 p.addRule(RelativeLayout.BELOW, lastLineFirstButton.getId());
-                Log.d(TAG,newButton.getText().toString() + " BELOW " + lastLineFirstButton.getText().toString());
             }
 
             if( ( lineFirstButton != null ) && ( (index % countPerRow) == 0 ) ) {
                 p.addRule(RelativeLayout.BELOW, lineFirstButton.getId());
-                Log.d(TAG,newButton.getText().toString() + " BELOW " + lineFirstButton.getText().toString());
             } else if( oldButton != null ) {
                 p.addRule(RelativeLayout.RIGHT_OF, oldButton.getId());
-                Log.d(TAG,newButton.getText().toString() + " RIGHT OF " + oldButton.getText().toString());
             }
 
             p.setMargins(left, top, right, bottom);
@@ -814,7 +851,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
     private void openCompleteFragment() {
         getActivity().getSupportFragmentManager().popBackStack();
-        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         String groupType = "";
         if( mSavedGroup == null || mSavedGroup.isEmpty() ) {
             groupType = "설정하지 않음";
@@ -825,6 +862,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         ft.replace(R.id.layout_content, ReportCompleteFragment.newInstance(mTvTime.getText().toString(),mTvAddr.getText().toString(),groupType));
         ft.commit();
         ft.addToBackStack(null);
+
     }
 
 
