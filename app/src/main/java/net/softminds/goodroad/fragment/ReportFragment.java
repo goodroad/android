@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.ExifInterface;
@@ -175,7 +176,8 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             }
             int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                     ExifInterface.ORIENTATION_UNDEFINED);
-
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
 
             mBitmap = Bitmap.createScaledBitmap(bitmap, 640, 480, true);
