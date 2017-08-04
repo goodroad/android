@@ -850,7 +850,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     }
 
     private void openCompleteFragment() {
-        getActivity().getSupportFragmentManager().popBackStack();
+
         final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         String groupType = "";
         if( mSavedGroup == null || mSavedGroup.isEmpty() ) {
@@ -858,8 +858,8 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         } else {
             groupType = mSavedGroup + ", " + mSavedSpecies;
         }
-
         ft.replace(R.id.layout_content, ReportCompleteFragment.newInstance(mTvTime.getText().toString(),mTvAddr.getText().toString(),groupType));
+        getActivity().getSupportFragmentManager().popBackStack();
         ft.commit();
         ft.addToBackStack(null);
 
@@ -942,7 +942,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
                 mLinearLayoutSending.setVisibility(View.GONE);
                 return;
             }
-            mLinearLayoutSending.setVisibility(View.GONE);
+
             Toast.makeText(getContext(), "신고 되었습니다.", Toast.LENGTH_SHORT).show();
             openCompleteFragment();
         }
