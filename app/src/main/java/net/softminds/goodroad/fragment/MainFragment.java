@@ -155,7 +155,6 @@ public class MainFragment extends Fragment {
     }
 
     void moveCamera() {
-        Log.d(TAG, "click moveCamera");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, 1);
     }
