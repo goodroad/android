@@ -328,7 +328,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mSelectedGroup = "";
         mLayoutAppBar = (AppBarLayout) getActivity().findViewById(R.id.layout_app_bar);
         mLayoutReport = (RelativeLayout) getView().findViewById(R.id.layout_report);
 
@@ -703,8 +703,9 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
         @Override
         public void onClick(View view) {
-            selectGroup(mGroupName);
 
+            selectGroup(mGroupName);
+            Log.d(TAG,"SELECTED GROUP:" + mGroupName);
             if( mLinearLayoutSelectGroupTypePanel.getVisibility() != View.VISIBLE) {
                 Animation bottomUp = AnimationUtils.loadAnimation(getContext(),
                         R.anim.bottom_up);
@@ -780,6 +781,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     private void selectGroup(String groupName) {
 
         if( mSelectedGroup != null && mSelectedGroup.equals(groupName) ) {
+            Log.d(TAG,"SELECTED GROUP(not changed):" + groupName);
             return;
         }
 
@@ -854,7 +856,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
             int left = 20;
             int right = 0;
-            int top = 15;
+            int top = 12;
             int bottom = 0;
 
             RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
