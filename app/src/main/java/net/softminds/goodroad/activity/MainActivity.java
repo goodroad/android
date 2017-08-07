@@ -144,8 +144,6 @@ public class MainActivity extends AppCompatActivity
 
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                10000, 100, mLocationListener);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -156,8 +154,10 @@ public class MainActivity extends AppCompatActivity
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                5000, 100, mLocationListener);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                10000, 100, mLocationListener);
+                5000, 100, mLocationListener);
     }
 
     public void setToolbarTitle(int resource) {

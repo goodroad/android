@@ -24,6 +24,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -842,7 +843,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             final Button newButton = new Button(this.getContext());
             newButton.setText(species);
             newButton.setId(index + 20000);
-            newButton.setTextSize(20);
+            newButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
             newButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -888,9 +889,9 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             newButton.setMinimumWidth(0);
             newButton.setHeight(ImageUtil.dpToPx(40,getContext()));
             newButton.setPadding(
-                    ImageUtil.dpToPx(25,getContext()),
+                    ImageUtil.dpToPx(20,getContext()),
                     ImageUtil.dpToPx(3,getContext()),
-                    ImageUtil.dpToPx(25,getContext()),
+                    ImageUtil.dpToPx(20,getContext()),
                     ImageUtil.dpToPx(3,getContext())
             );
 

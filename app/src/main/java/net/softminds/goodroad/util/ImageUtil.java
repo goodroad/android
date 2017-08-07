@@ -57,13 +57,19 @@ public class ImageUtil {
 
     public static int pxToDp(int px,Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return dp;
+        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
     public static int dpToPx(int dp,Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return px;
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public static int pxToSp(int px, Context context) {
+        return Math.round(px / context.getResources().getDisplayMetrics().scaledDensity);
+    }
+
+    public static int spToPx(int sp, Context context) {
+        return Math.round(sp * context.getResources().getDisplayMetrics().scaledDensity);
     }
 }
