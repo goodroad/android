@@ -843,7 +843,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             final Button newButton = new Button(this.getContext());
             newButton.setText(species);
             newButton.setId(index + 20000);
-            newButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            newButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
 
             newButton.setOnClickListener(new View.OnClickListener() {
                 @Override
