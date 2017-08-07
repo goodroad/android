@@ -45,12 +45,10 @@ import net.daum.mf.map.api.MapPoint;
 import net.softminds.goodroad.R;
 import net.softminds.goodroad.activity.MainActivity;
 import net.softminds.goodroad.common.Definitions;
-import net.softminds.goodroad.exception.HttpResponseCodeException;
 import net.softminds.goodroad.util.ImageUtil;
 import net.softminds.goodroad.util.SMHttpClient;
 import net.softminds.goodroad.util.UriUtil;
 
-import org.apache.http.StatusLine;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -349,10 +347,10 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             public void onClick(View view) {
                 if( mLinearLayoutSelectGroupType.getVisibility() == View.VISIBLE ) {
                     mLinearLayoutSelectGroupType.setVisibility(View.GONE);
-                    mIvOpenSelectGroupType.setImageDrawable(getResources().getDrawable(R.mipmap.detail_btn_open));
+                    mIvOpenSelectGroupType.setImageDrawable(getResources().getDrawable(R.mipmap.btn_open_detail));
                 } else {
                     mLinearLayoutSelectGroupType.setVisibility(View.VISIBLE);
-                    mIvOpenSelectGroupType.setImageDrawable(getResources().getDrawable(R.mipmap.detail_btn_close));
+                    mIvOpenSelectGroupType.setImageDrawable(getResources().getDrawable(R.mipmap.btn_close_detail));
                 }
             }
         });
@@ -423,7 +421,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
                 mTvSavedGroup.setText(mSavedGroup);
                 mTvSavedSpecies.setText(mSavedSpecies);
                 mLinearLayoutSelectGroupType.setVisibility(View.GONE);
-                mIvOpenSelectGroupType.setImageDrawable(getResources().getDrawable(R.mipmap.detail_btn_open));
+                mIvOpenSelectGroupType.setImageDrawable(getResources().getDrawable(R.mipmap.btn_open_detail));
             }
         });
 
