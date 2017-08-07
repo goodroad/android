@@ -1,8 +1,10 @@
 package net.softminds.goodroad.util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.util.DisplayMetrics;
 
 /**
  * Created by hjlee on 2017-08-03.
@@ -51,5 +53,17 @@ public class ImageUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static int pxToDp(int px,Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return dp;
+    }
+
+    public static int dpToPx(int dp,Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
     }
 }

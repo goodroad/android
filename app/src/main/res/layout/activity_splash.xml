@@ -18,8 +18,8 @@
         android:layout_gravity="center"/>
     <TextView android:id="@+id/splash_copyright"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginTop="-100px"
+        android:layout_height="35dp"
+        android:layout_marginTop="-120px"
         android:text="@string/copyright"
         android:gravity="center"
         android:textColor="@color/colorWhite"
