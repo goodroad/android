@@ -39,15 +39,19 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activity.IntroActivity"
             android:label="@string/menu_introduction"
+            android:screenOrientation="portrait"
             ></activity>
         <activity android:name=".activity.NewsActivity"
             android:label="@string/menu_news"
+            android:screenOrientation="portrait"
             ></activity>
         <activity android:name=".activity.ManualActivity"
             android:label="@string/menu_roadkill_manual"
+            android:screenOrientation="portrait"
             ></activity>
         <activity android:name=".activity.PhoneActivity"
             android:label="@string/menu_roadkill_phone"
+            android:screenOrientation="portrait"
             ></activity>
     </application>
 
