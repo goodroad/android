@@ -4,12 +4,14 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Menu;
@@ -33,7 +35,9 @@ import net.softminds.goodroad.adapter.CustomExpandableListAdapter;
 import net.softminds.goodroad.fragment.MainFragment;
 import net.softminds.goodroad.fragment.ReportCompleteFragment;
 import net.softminds.goodroad.model.ExpandableMenuListItem;
+import net.softminds.goodroad.util.UriUtil;
 
+import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -220,6 +224,9 @@ public class MainActivity extends AppCompatActivity
         } else if( mExpandableListMenus.get(groupPosition).getTitle().equals(getString(R.string.menu_roadkill_method)) ) {
             if( mExpandableListMenus.get(groupPosition).getSubMenus().get(childPosition).getTitle().equals(getString(R.string.menu_roadkill_manual))) {
                 Intent mainIntent = new Intent(MainActivity.this, ManualActivity.class);
+
+                mainIntent.setAction(Intent.ACTION_VIEW);
+                mainIntent.setDataAndType(Uri.parse("android.resource://net.softminds.goodroad/raw/manual"), "application/pdf");
                 MainActivity.this.startActivity(mainIntent);
             } else if( mExpandableListMenus.get(groupPosition).getSubMenus().get(childPosition).getTitle().equals(getString(R.string.menu_roadkill_phone))) {
                 Intent mainIntent = new Intent(MainActivity.this, PhoneActivity.class);

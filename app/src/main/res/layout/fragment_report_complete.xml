@@ -21,7 +21,7 @@
         android:text="@string/thank_you_for_report"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/report_black"
+        android:textColor="@color/colorLightBlack"
         android:textSize="32dp"
         android:textStyle="bold"
         android:textAlignment="center"

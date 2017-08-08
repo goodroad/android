@@ -53,6 +53,13 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
+        ImageView expandedListTextViewIcon = (ImageView) convertView.findViewById(R.id.expandedListItemIcon);
+
+        if( expandedListPosition == 0 ) {
+            expandedListTextViewIcon.setImageDrawable(convertView.getResources().getDrawable(R.mipmap.icon_glass));
+        } else {
+            expandedListTextViewIcon.setImageDrawable(convertView.getResources().getDrawable(R.mipmap.icon_call));
+        }
         expandedListTextView.setText(expandedListText);
         return convertView;
     }

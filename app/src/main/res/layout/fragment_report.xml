@@ -273,7 +273,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/iv_group_type_01"
-                                android:textColor="@color/report_black"
+                                android:textColor="@color/colorLightBlack"
                                 android:text="포유류"
                                 android:gravity="center_horizontal" />
 
@@ -297,7 +297,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/iv_group_type_02"
-                                android:textColor="@color/report_black"
+                                android:textColor="@color/colorLightBlack"
                                 android:text="양서류"
                                 android:gravity="center_horizontal" />
 
@@ -322,7 +322,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/iv_group_type_03"
-                                android:textColor="@color/report_black"
+                                android:textColor="@color/colorLightBlack"
                                 android:text="조류"
                                 android:gravity="center_horizontal" />
 
@@ -347,7 +347,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/iv_group_type_04"
-                                android:textColor="@color/report_black"
+                                android:textColor="@color/colorLightBlack"
                                 android:text="파충류"
                                 android:gravity="center_horizontal" />
                         </RelativeLayout>
@@ -437,7 +437,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/iv_group_type_01_on_pop"
-                    android:textColor="@color/report_black"
+                    android:textColor="@color/colorLightBlack"
                     android:text="포유류"
                     android:gravity="center_horizontal" />
 
@@ -461,7 +461,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/iv_group_type_02_on_pop"
-                    android:textColor="@color/report_black"
+                    android:textColor="@color/colorLightBlack"
                     android:text="양서류"
                     android:gravity="center_horizontal" />
 
@@ -486,7 +486,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/iv_group_type_03_on_pop"
-                    android:textColor="@color/report_black"
+                    android:textColor="@color/colorLightBlack"
                     android:text="조류"
                     android:gravity="center_horizontal" />
 
@@ -511,7 +511,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/iv_group_type_04_on_pop"
-                    android:textColor="@color/report_black"
+                    android:textColor="@color/colorLightBlack"
                     android:text="파충류"
                     android:gravity="center_horizontal" />
             </RelativeLayout>

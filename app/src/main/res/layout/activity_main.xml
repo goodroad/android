@@ -31,6 +31,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="left|start"
             android:layout_marginTop="@dimen/nav_header_height"
+            android:paddingTop="30dp"
+            android:paddingLeft="30dp"
             android:background="@color/colorWhite"
             android:divider="@color/group_divider_color"
             android:dividerHeight="@dimen/divider_height"
