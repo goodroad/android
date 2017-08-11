@@ -85,6 +85,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
     private TextView mTvAddr;
     private TextView mTvTime;
+    private String mDate;
     private Thread mThreadLocation;
 
     private ImageView mIvOpenSelectGroupType;
@@ -488,6 +489,9 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         String str = dayTime.format(new Date(time));
 
         mTvTime.setText(str);
+
+        SimpleDateFormat day = new SimpleDateFormat("yyyyMMdd");
+        mDate = day.format(new java.util.Date(time));
 
         createMapView();
     }
@@ -958,7 +962,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
                 JSONObject params = new JSONObject();
                 params.put("group1", mSavedGroup);
                 params.put("group2", mSavedSpecies);
-                params.put("writeDate", mTvTime.getText().toString());
+                params.put("writeDate", mDate);
                 params.put("lng", mMapView.getMapCenterPoint().getMapPointGeoCoord().longitude);
                 params.put("lat", mMapView.getMapCenterPoint().getMapPointGeoCoord().latitude);
                 params.put("file", mFileName);
