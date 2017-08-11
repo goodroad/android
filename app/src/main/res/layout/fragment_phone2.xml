@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:gravity="center"
+        android:background="@color/colorLightGray"
+        android:textColor="@color/colorGray"
+        android:text="빠른 신고는 도로위 사고를 방지합니다.\n신고해주셔서 감사합니다."
+        android:textSize="15sp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ListView
+        android:dividerHeight="1dp"
+        android:divider="@color/colorLightGray"
+        android:id="@+id/phone2_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+</LinearLayout>

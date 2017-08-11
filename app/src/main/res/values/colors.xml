@@ -26,4 +26,5 @@
     <color name="colorBarTitleText">#ecc314</color>
     <color name="report_sending_layout_bg">#DDFFFFFF</color>
     <color name="colorTransparentBlack">#99000000</color>
+    <color name="colorBrown">#803300</color>
 </resources>

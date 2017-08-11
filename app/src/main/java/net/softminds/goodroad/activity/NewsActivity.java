@@ -11,7 +11,9 @@ import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import net.softminds.goodroad.R;
 
@@ -57,5 +59,14 @@ public class NewsActivity extends AppCompatActivity {
 
         mWvNews.getSettings().setJavaScriptEnabled(true);
         mWvNews.loadUrl("http://goodroad.co.kr/html/news.html");
+        ImageButton ibBack = (ImageButton) findViewById(R.id.btn_back);
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        TextView tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvTitle.setText(getTitle());
     }
 }

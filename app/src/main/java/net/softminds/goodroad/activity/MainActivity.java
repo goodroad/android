@@ -32,10 +32,14 @@ import android.widget.TextView;
 
 import net.softminds.goodroad.R;
 import net.softminds.goodroad.adapter.CustomExpandableListAdapter;
+import net.softminds.goodroad.common.Definitions;
 import net.softminds.goodroad.fragment.MainFragment;
 import net.softminds.goodroad.fragment.ReportCompleteFragment;
 import net.softminds.goodroad.model.ExpandableMenuListItem;
+import net.softminds.goodroad.util.SMHttpClient;
 import net.softminds.goodroad.util.UriUtil;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.List;
@@ -53,7 +57,8 @@ public class MainActivity extends AppCompatActivity
     private ExpandableListView mExpandableListView;
     private CustomExpandableListAdapter mExpandableListAdapter;
     private List<ExpandableMenuListItem> mExpandableListMenus;
-
+    static public String localNumber = null;
+    private Thread mThreadLocation;
     public static Location mCurrentLocation = null;
     private LocationManager mLocationManager = null;
 
@@ -85,6 +90,66 @@ public class MainActivity extends AppCompatActivity
                 if( mLocationChangeListner != null ) {
                     mLocationChangeListner.onLocationChanged(location);
                 }
+
+                mThreadLocation = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            JSONObject addr = SMHttpClient.execute("GET","https://apis.daum.net/local/geo/coord2addr",null,
+                                    "apikey=" + Definitions.DAUM_REST_API_KEY + "&longitude=" + location.getLongitude() + "&latitude=" + location.getLatitude() + "&inputCoordSystem=WGS84&output=json",null);
+                            if( addr != null ) {
+                                final String fullName = addr.getString("fullName");
+
+                                if( fullName != null ) {
+                                    if (fullName.contains("서울")) {
+                                        localNumber = "02";
+                                    } else if (fullName.contains("경기도")) {
+                                        localNumber = "031";
+                                    } else if (fullName.contains("인천")) {
+                                        localNumber = "032";
+                                    } else if (fullName.contains("강원도")) {
+                                        localNumber = "033";
+                                    } else if (fullName.contains("충청남도")) {
+                                        localNumber = "041";
+                                    } else if (fullName.contains("대전")) {
+                                        localNumber = "042";
+                                    } else if (fullName.contains("충청북도")) {
+                                        localNumber = "043";
+                                    } else if (fullName.contains("세종")) {
+                                        localNumber = "044";
+                                    } else if (fullName.contains("개성")) {
+                                        localNumber = "049";
+                                    } else if (fullName.contains("부산")) {
+                                        localNumber = "051";
+                                    } else if (fullName.contains("울산")) {
+                                        localNumber = "052";
+                                    } else if (fullName.contains("대구")) {
+                                        localNumber = "053";
+                                    } else if (fullName.contains("경상북도")) {
+                                        localNumber = "054";
+                                    } else if (fullName.contains("경상남도")) {
+                                        localNumber = "055";
+                                    } else if (fullName.contains("전라남도")) {
+                                        localNumber = "061";
+                                    } else if (fullName.contains("광주")) {
+                                        localNumber = "062";
+                                    } else if (fullName.contains("전라북도")) {
+                                        localNumber = "063";
+                                    } else if (fullName.contains("제주")) {
+                                        localNumber = "064";
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            mThreadLocation = null;
+                        }
+                    }
+                });
+                mThreadLocation.start();
+
             } else {
                 Log.d(TAG, "mCurrentLocation is not null");
             }
@@ -130,14 +195,14 @@ public class MainActivity extends AppCompatActivity
 
         addDrawerItems();
 
-        ImageButton btnOpenNotice = (ImageButton) findViewById(R.id.btn_open_notice);
-        btnOpenNotice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mainIntent = new Intent(MainActivity.this, NoticeActivity.class);
-                MainActivity.this.startActivity(mainIntent);
-            }
-        });
+//        ImageButton btnOpenNotice = (ImageButton) findViewById(R.id.btn_open_notice);
+//        btnOpenNotice.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent mainIntent = new Intent(MainActivity.this, NoticeActivity.class);
+//                MainActivity.this.startActivity(mainIntent);
+//            }
+//        });
 
         mNavigationView.setNavigationItemSelectedListener(this);
 

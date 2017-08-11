@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:gravity="center"
+        android:background="@color/colorLightGray"
+        android:textColor="@color/colorYellow"
+        android:text="살아있는 동물이 있다면\n저희가 신속한 신고 처리를 도와드리겠습니다."
+        android:textSize="15sp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ListView
+        android:dividerHeight="1dp"
+        android:divider="@color/colorLightGray"
+        android:id="@+id/phone1_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+</LinearLayout>

@@ -16,7 +16,6 @@ import net.softminds.goodroad.R;
 import net.softminds.goodroad.model.ExpandableMenuListItem;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by hjlee on 2017-07-31.
@@ -49,7 +48,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
         final String expandedListText = (String) getChild(listPosition, expandedListPosition).getTitle();
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.list_item, null);
+            convertView = mLayoutInflater.inflate(R.layout.list_item_menu, null);
         }
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);

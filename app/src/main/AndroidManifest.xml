@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <meta-data android:name="com.kakao.sdk.AppKey" android:value="434a8422ce9c7bdda01be01f1ebd089e"/>
 
@@ -40,18 +41,22 @@
         <activity android:name=".activity.IntroActivity"
             android:label="@string/menu_introduction"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             ></activity>
         <activity android:name=".activity.NewsActivity"
             android:label="@string/menu_news"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             ></activity>
         <activity android:name=".activity.ManualActivity"
             android:label="@string/menu_roadkill_manual"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             ></activity>
         <activity android:name=".activity.PhoneActivity"
             android:label="@string/menu_roadkill_phone"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             ></activity>
     </application>
 

@@ -23,4 +23,18 @@
         <item name="spinBars">true</item>
         <item name="color">@color/colorYellow</item>
     </style>
+    <style name="ThemeOverlay.GoodRoad.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <!-- Parent theme sets colorControlNormal to textColorPrimary. -->
+        <item name="android:background">@color/colorLightBlack</item>
+        <item name="android:textColorPrimary">@color/colorYellow</item>
+    </style>
+    <style name="ThemeOverlay.GoodRoad.CallTab" parent="ThemeOverlay.AppCompat.ActionBar">
+        <!-- Parent theme sets colorControlNormal to textColorPrimary. -->
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColorPrimary">@color/colorLightBlack</item>
+    </style>
+
+    <style name="TabText">
+        <item name="android:textSize">17sp</item>
+    </style>
 </resources>

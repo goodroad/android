@@ -7,7 +7,9 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import net.softminds.goodroad.R;
 
@@ -41,5 +43,14 @@ public class IntroActivity extends AppCompatActivity {
 
         mWvIntro.getSettings().setJavaScriptEnabled(true);
         mWvIntro.loadUrl("http://goodroad.co.kr/html/about.html");
+        ImageButton ibBack = (ImageButton) findViewById(R.id.btn_back);
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        TextView tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvTitle.setText(getTitle());
     }
 }

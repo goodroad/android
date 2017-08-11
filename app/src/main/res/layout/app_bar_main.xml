@@ -31,20 +31,20 @@
                 android:textColor="@color/colorYellow"
                 android:layout_gravity="center"
                 android:id="@+id/toolbar_title" />
-            <RelativeLayout
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageButton
-                    android:id="@+id/btn_open_notice"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_noti"
-                    android:background="@color/colorTransparent"
-                    />
-            </RelativeLayout>
+            <!--<RelativeLayout-->
+                <!--android:layout_gravity="right"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<ImageButton-->
+                    <!--android:id="@+id/btn_open_notice"-->
+                    <!--android:paddingLeft="20dp"-->
+                    <!--android:paddingRight="20dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@mipmap/icon_noti"-->
+                    <!--android:background="@color/colorTransparent"-->
+                    <!--/>-->
+            <!--</RelativeLayout>-->
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

@@ -6,6 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="net.softminds.goodroad.activity.IntroActivity">
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:padding="7dp"
+            android:id="@+id/btn_back"
+            android:src="@mipmap/btn_back"
+            android:background="@color/colorTransparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:gravity="center"
+            android:textColor="@color/colorYellow"
+            android:textSize="20sp"
+            android:layout_marginTop="9dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/layout_loading_intro"
         android:gravity="center"
@@ -25,6 +45,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <WebView
+        android:layout_marginTop="50dp"
         android:id="@+id/wv_intro"
         android:visibility="invisible"
         android:layout_width="match_parent"
