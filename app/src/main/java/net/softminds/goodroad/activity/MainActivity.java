@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Menu;
@@ -29,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.softminds.goodroad.R;
 import net.softminds.goodroad.adapter.CustomExpandableListAdapter;
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity
     private Thread mThreadLocation;
     public static Location mCurrentLocation = null;
     private LocationManager mLocationManager = null;
-
+    private MainActivity self;
 
     static public interface OnLocationChangeListener {
         void onLocationChanged(final Location location);
@@ -84,6 +86,9 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onLocationChanged(final Location location) {
             Log.d(TAG, "Current location : lat(" + location.getLatitude() + ") lng(" + location.getLongitude() + ")");
+
+
+
             if (mCurrentLocation == null) {
                 Log.d(TAG, "mCurrentLocation is null");
                 mCurrentLocation = location;
@@ -175,6 +180,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        self = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -223,11 +230,11 @@ public class MainActivity extends AppCompatActivity
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        Log.d(TAG,"location requested");
+
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                0, 0, mLocationListener);
+                5000, 0, mLocationListener);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                0, 0, mLocationListener);
+                5000, 0, mLocationListener);
     }
 
     public void setToolbarTitle(int resource) {

@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
@@ -259,6 +260,19 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         mView.requestFocus();
 
         final Fragment self = this;
+
+        String provider = Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+        if( !provider.contains("gps") ) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(self.getActivity(), "위치 기능이 꺼져있습니다.\n지도에서 드래그하여\n현재 위치를 선택해주세요.", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+
 
         mView.setOnKeyListener(new View.OnKeyListener() {
             @Override
