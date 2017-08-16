@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import net.softminds.goodroad.R;
 import net.softminds.goodroad.activity.MainActivity;
@@ -26,6 +28,8 @@ import net.softminds.goodroad.activity.MainActivity;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,36 +105,27 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        checkpermission();
-        checkLocationPermssion();
-
         mBtnCamera = (ImageButton) getView().findViewById(R.id.imageButton_camera);
         mBtnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(), "저장권한이 없어 신고 기능을 이용하실 수 없습니다.\n안드로이드 설정에서 굿로드에 저장 권한을 주신 후 이용 가능합니다.", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent();
+                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                            intent.setData(uri);
+                            startActivity(intent);
+                        }
+                    });
+                    return;
+                }
                 moveCamera();
             }
         });
-    }
-
-    private void checkpermission() {
-        Log.d(TAG, "checkpermission!!");
-        if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
-        }
-
-
-    }
-
-    private void checkLocationPermssion() {
-        Log.d(TAG, "checkLocationPermssion!!");
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
     }
 
     public void onButtonPressed(Uri uri) {
@@ -145,6 +140,9 @@ public class MainFragment extends Fragment {
         Log.d(TAG, "onActivityResult : " + requestCode + ", " + resultCode);
 
         if( requestCode == 1 ) {
+            if( resultCode != RESULT_OK ) {
+                return;
+            }
             if (data == null) return;
 
             final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();

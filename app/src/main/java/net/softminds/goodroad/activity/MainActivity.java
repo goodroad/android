@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Menu;
@@ -80,19 +81,16 @@ public class MainActivity extends AppCompatActivity
     private static OnLocationChangeListener mLocationChangeListner;
 
 
-
-
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
             Log.d(TAG, "Current location : lat(" + location.getLatitude() + ") lng(" + location.getLongitude() + ")");
 
 
-
             if (mCurrentLocation == null) {
                 Log.d(TAG, "mCurrentLocation is null");
                 mCurrentLocation = location;
-                if( mLocationChangeListner != null ) {
+                if (mLocationChangeListner != null) {
                     mLocationChangeListner.onLocationChanged(location);
                 }
 
@@ -101,12 +99,12 @@ public class MainActivity extends AppCompatActivity
                     public void run() {
 
                         try {
-                            JSONObject addr = SMHttpClient.execute("GET","https://apis.daum.net/local/geo/coord2addr",null,
-                                    "apikey=" + Definitions.DAUM_REST_API_KEY + "&longitude=" + location.getLongitude() + "&latitude=" + location.getLatitude() + "&inputCoordSystem=WGS84&output=json",null);
-                            if( addr != null ) {
+                            JSONObject addr = SMHttpClient.execute("GET", "https://apis.daum.net/local/geo/coord2addr", null,
+                                    "apikey=" + Definitions.DAUM_REST_API_KEY + "&longitude=" + location.getLongitude() + "&latitude=" + location.getLatitude() + "&inputCoordSystem=WGS84&output=json", null);
+                            if (addr != null) {
                                 final String fullName = addr.getString("fullName");
 
-                                if( fullName != null ) {
+                                if (fullName != null) {
                                     if (fullName.contains("서울")) {
                                         localNumber = "02";
                                     } else if (fullName.contains("경기도")) {
@@ -218,24 +216,29 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.layout_content, MainFragment.getInstance()).commit();
         }
 
+
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                5000, 0, mLocationListener);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                5000, 0, mLocationListener);
+        checkWritePermission();
     }
+
+    private void checkWritePermission() {
+        Log.d(TAG, "checkpermission!!");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+        }
+    }
+
+    private void checkLocationPermssion() {
+        Log.d(TAG, "checkLocationPermssion!!");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+    }
+
 
     public void setToolbarTitle(int resource) {
         TextView tvTitle = (TextView) findViewById(R.id.toolbar_title);
@@ -243,16 +246,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void addDrawerItems() {
-        Log.d(TAG,"addDrawerItems");
+        Log.d(TAG, "addDrawerItems");
         mExpandableListAdapter = new CustomExpandableListAdapter(this, mExpandableListMenus);
         mExpandableListView.setAdapter(mExpandableListAdapter);
         mExpandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
 
-                if( mExpandableListAdapter.getChildrenCount(groupPosition) == 0 ) {
-                    openMenu(groupPosition,-1);
-                    Log.d(TAG,"CLOSEDRAWER #1");
+                if (mExpandableListAdapter.getChildrenCount(groupPosition) == 0) {
+                    openMenu(groupPosition, -1);
+                    Log.d(TAG, "CLOSEDRAWER #1");
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                 } else {
                     mExpandableListAdapter.rotate(groupPosition);
@@ -263,10 +266,10 @@ public class MainActivity extends AppCompatActivity
         mExpandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Log.d(TAG,"mExpandableListView setOnGroupCollapseListener : " + groupPosition);
-                if( mExpandableListAdapter.getChildrenCount(groupPosition) == 0 ) {
-                    openMenu(groupPosition,-1);
-                    Log.d(TAG,"CLOSEDRAWER #2");
+                Log.d(TAG, "mExpandableListView setOnGroupCollapseListener : " + groupPosition);
+                if (mExpandableListAdapter.getChildrenCount(groupPosition) == 0) {
+                    openMenu(groupPosition, -1);
+                    Log.d(TAG, "CLOSEDRAWER #2");
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                 } else {
                     mExpandableListAdapter.rotate(groupPosition);
@@ -278,9 +281,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Log.d(TAG,"mExpandableListView setOnChildClickListener : " + groupPosition + "-" + childPosition);
-                openMenu(groupPosition,childPosition);
-                Log.d(TAG,"CLOSEDRAWER #3");
+                Log.d(TAG, "mExpandableListView setOnChildClickListener : " + groupPosition + "-" + childPosition);
+                openMenu(groupPosition, childPosition);
+                Log.d(TAG, "CLOSEDRAWER #3");
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 return false;
             }
@@ -288,20 +291,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void openMenu(int groupPosition, int childPosition) {
-        if( mExpandableListMenus.get(groupPosition).getTitle().equals(getString(R.string.menu_introduction)) ) {
+        if (mExpandableListMenus.get(groupPosition).getTitle().equals(getString(R.string.menu_introduction))) {
             Intent mainIntent = new Intent(MainActivity.this, IntroActivity.class);
             MainActivity.this.startActivity(mainIntent);
-        } else if( mExpandableListMenus.get(groupPosition).getTitle().equals(getString(R.string.menu_news)) ) {
+        } else if (mExpandableListMenus.get(groupPosition).getTitle().equals(getString(R.string.menu_news))) {
             Intent mainIntent = new Intent(MainActivity.this, NewsActivity.class);
             MainActivity.this.startActivity(mainIntent);
-        } else if( mExpandableListMenus.get(groupPosition).getTitle().equals(getString(R.string.menu_roadkill_method)) ) {
-            if( mExpandableListMenus.get(groupPosition).getSubMenus().get(childPosition).getTitle().equals(getString(R.string.menu_roadkill_manual))) {
+        } else if (mExpandableListMenus.get(groupPosition).getTitle().equals(getString(R.string.menu_roadkill_method))) {
+            if (mExpandableListMenus.get(groupPosition).getSubMenus().get(childPosition).getTitle().equals(getString(R.string.menu_roadkill_manual))) {
                 Intent mainIntent = new Intent(MainActivity.this, ManualActivity.class);
 
                 mainIntent.setAction(Intent.ACTION_VIEW);
                 mainIntent.setDataAndType(Uri.parse("android.resource://net.softminds.goodroad/raw/manual"), "application/pdf");
                 MainActivity.this.startActivity(mainIntent);
-            } else if( mExpandableListMenus.get(groupPosition).getSubMenus().get(childPosition).getTitle().equals(getString(R.string.menu_roadkill_phone))) {
+            } else if (mExpandableListMenus.get(groupPosition).getSubMenus().get(childPosition).getTitle().equals(getString(R.string.menu_roadkill_phone))) {
                 Intent mainIntent = new Intent(MainActivity.this, PhoneActivity.class);
                 MainActivity.this.startActivity(mainIntent);
             }
@@ -314,19 +317,19 @@ public class MainActivity extends AppCompatActivity
         List<ExpandableMenuListItem> expandableListData = new ArrayList<ExpandableMenuListItem>();
 
 
-        PopupMenu p  = new PopupMenu(this, null);
+        PopupMenu p = new PopupMenu(this, null);
         Menu menus = p.getMenu();
         getMenuInflater().inflate(R.menu.activity_main_drawer, menus);
 
-        for ( int i = 0; i < menus.size() ; i++ ) {
+        for (int i = 0; i < menus.size(); i++) {
             ExpandableMenuListItem menu = new ExpandableMenuListItem();
             menu.setTitle(menus.getItem(i).getTitle().toString());
             expandableListData.add(menu);
 
-            if( menus.getItem(i).hasSubMenu() ) {
+            if (menus.getItem(i).hasSubMenu()) {
                 List<ExpandableMenuListItem> submenus = new ArrayList<ExpandableMenuListItem>();
 
-                for (int j = 0; j < menus.getItem(i).getSubMenu().size() ; j++) {
+                for (int j = 0; j < menus.getItem(i).getSubMenu().size(); j++) {
                     ExpandableMenuListItem submenu = new ExpandableMenuListItem();
                     submenu.setTitle(menus.getItem(i).getSubMenu().getItem(j).getTitle().toString());
                     submenus.add(submenu);
@@ -360,7 +363,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Log.d(TAG,"CLOSEDRAWER #5");
+        Log.d(TAG, "CLOSEDRAWER #5");
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -377,10 +380,27 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
-                        Log.d(TAG,"CLOSEDRAWER #6");
+                        Log.d(TAG, "CLOSEDRAWER #6");
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
                 });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 2) {
+            checkLocationPermssion();
+        } else if (requestCode == 1) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    5000, 0, mLocationListener);
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    5000, 0, mLocationListener);
+
+        }
     }
 }

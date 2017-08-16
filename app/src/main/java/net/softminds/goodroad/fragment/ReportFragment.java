@@ -72,7 +72,6 @@ import java.text.SimpleDateFormat;
  * create an instance of this fragment.
  */
 public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapView.OpenAPIKeyAuthenticationResultListener, net.daum.mf.map.api.MapView.MapViewEventListener, MainActivity.OnLocationChangeListener {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -1048,6 +1047,17 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     private String SENDING_STEP3;
 
     private void report() throws JSONException {
+
+        if( mTvAddr.getText() == null || mTvAddr.getText().toString().trim().isEmpty() ) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getActivity(), "지도에서 현재 위치를 지정해주세요.", Toast.LENGTH_LONG).show();
+                }
+            });
+            return;
+        }
+
         SENDING_STEP1 = getString(R.string.sending_step_1);
         SENDING_STEP2 = getString(R.string.sending_step_2);
         SENDING_STEP3 = getString(R.string.sending_step_3);
