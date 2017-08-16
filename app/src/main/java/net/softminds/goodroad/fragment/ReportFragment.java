@@ -2,7 +2,9 @@ package net.softminds.goodroad.fragment;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -53,6 +55,7 @@ import net.softminds.goodroad.util.UriUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -142,7 +145,22 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     private ContentResolver mContentResolver;
     private Bitmap mBitmap = null;
 
-    public static ReportFragment getInstance(Uri imageDataUri,ContentResolver contentResolver) {
+    public static Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);  // your capture image URL code
+        return Uri.parse(path);
+
+    }
+
+    public static ReportFragment getInstance(Context context, Intent data, ContentResolver contentResolver) {
+
+        Uri imageDataUri = data.getData();
+
+        if( imageDataUri == null ) {
+            imageDataUri = getImageUri(context, (Bitmap) data.getExtras().get("data"));
+        }
+
         if (mInstance == null) {
             mInstance = new ReportFragment();
         }

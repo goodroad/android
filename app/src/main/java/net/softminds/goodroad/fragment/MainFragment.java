@@ -144,13 +144,15 @@ public class MainFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult : " + requestCode + ", " + resultCode);
 
-        if( data == null ) return;
+        if( requestCode == 1 ) {
+            if (data == null) return;
 
-        final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
 
-        ft.replace(R.id.layout_content, ReportFragment.getInstance(data.getData(),getContext().getContentResolver()));
-        ft.commit();
-        ft.addToBackStack(null);
+            ft.replace(R.id.layout_content, ReportFragment.getInstance(getContext(), data, getContext().getContentResolver()));
+            ft.commit();
+            ft.addToBackStack(null);
+        }
     }
 
     void moveCamera() {

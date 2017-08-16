@@ -1,10 +1,15 @@
 package net.softminds.goodroad.fragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +28,8 @@ import net.softminds.goodroad.model.PhoneNumberItem;
 
 public class Phone2Fragment extends Fragment {
     final static private String TAG = Phone2Fragment.class.getName();
+
+    String mPhoneNumber;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -50,18 +57,43 @@ public class Phone2Fragment extends Fragment {
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
                     PhoneNumberItem item = (PhoneNumberItem) adapter2.getItem(position);
-                    String phoneNumber = item.getPhoneNumber();
+                    mPhoneNumber = item.getPhoneNumber();
                     if( position == 2 ) {
                         if(MainActivity.localNumber == null) return;
-                        phoneNumber = MainActivity.localNumber + "128";
-                    } else if( phoneNumber.contains("~")) {
-                        phoneNumber = phoneNumber.substring(0,phoneNumber.indexOf("~"));
+                        mPhoneNumber = MainActivity.localNumber + "128";
+                    } else if( mPhoneNumber.contains("~")) {
+                        mPhoneNumber = mPhoneNumber.substring(0,mPhoneNumber.indexOf("~"));
                     }
-                    Log.d(TAG,"phoneNumber : " + phoneNumber);
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+phoneNumber));
-                    startActivity(intent);
+                    Log.d(TAG,"phoneNumber : " + mPhoneNumber);
+                    int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE);
+
+                    if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(
+                                getActivity(),
+                                new String[]{Manifest.permission.CALL_PHONE},
+                                1);
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mPhoneNumber));
+                        startActivity(intent);
+                    }
                 }
             });
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch(requestCode) {
+            case 1:
+                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mPhoneNumber));
+                    startActivity(intent);
+                } else {
+                    Log.d("TAG", "Call Permission Not Granted");
+                }
+                break;
+            default:
+                break;
         }
     }
 }

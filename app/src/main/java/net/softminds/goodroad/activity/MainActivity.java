@@ -223,10 +223,11 @@ public class MainActivity extends AppCompatActivity
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        Log.d(TAG,"location requested");
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                5000, 100, mLocationListener);
+                0, 0, mLocationListener);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                5000, 100, mLocationListener);
+                0, 0, mLocationListener);
     }
 
     public void setToolbarTitle(int resource) {
