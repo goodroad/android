@@ -5,18 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="net.softminds.goodroad.activity.MainActivity">
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/layout_app_bar"
-        android:visibility="visible"
-        android:background="@color/colorTransparent"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:titleTextColor="@color/colorYellow"
@@ -47,7 +38,6 @@
             <!--</RelativeLayout>-->
         </android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
     <FrameLayout
         android:id="@+id/layout_content"
         android:layout_width="match_parent"

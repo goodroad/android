@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -137,7 +137,6 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     private String mSavedGroup = "";
     private String mSavedSpecies = "";
     private OnFragmentInteractionListener mListener;
-    private AppBarLayout mLayoutAppBar;
 
     private static final String URL = "http://rest.goodroad.co.kr/api/reports";
     private static final String URL_FILE = "http://rest.goodroad.co.kr/upload";
@@ -358,12 +357,10 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         mLinearLayoutSelectGroupTypePanel.startAnimation(bottomDown);
 
 
-        Animation topDown = AnimationUtils.loadAnimation(getContext(),
-                R.anim.top_down);
-        mLayoutAppBar.startAnimation(topDown);
-        mLayoutAppBar.setVisibility(View.VISIBLE);
-        mLayoutReport.startAnimation(topDown);
-        mLayoutReport.setVisibility(View.VISIBLE);
+//        Animation topDown = AnimationUtils.loadAnimation(getContext(),
+//                R.anim.top_down);
+//        mLayoutReport.startAnimation(topDown);
+//        mLayoutReport.setVisibility(View.VISIBLE);
     }
 
     public void closeFragment() {
@@ -381,7 +378,6 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mSelectedGroup = "";
-        mLayoutAppBar = (AppBarLayout) getActivity().findViewById(R.id.layout_app_bar);
         mLayoutReport = (RelativeLayout) getView().findViewById(R.id.layout_report);
 
         mSavedSpecies = "";
@@ -793,46 +789,25 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
                 });
                 mLinearLayoutSelectGroupTypePanel.startAnimation(bottomUp);
 
-                Animation topUpTitle = AnimationUtils.loadAnimation(getContext(),
-                        R.anim.top_up);
-                topUpTitle.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mLayoutAppBar.setVisibility(View.GONE);
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-                mLayoutAppBar.startAnimation(topUpTitle);
-
-                Animation topUp = AnimationUtils.loadAnimation(getContext(),
-                        R.anim.top_up);
-                topUp.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mLayoutReport.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-                mLayoutReport.startAnimation(topUp);
+//                Animation topUp = AnimationUtils.loadAnimation(getContext(),
+//                        R.anim.top_up);
+//                topUp.setAnimationListener(new Animation.AnimationListener() {
+//                    @Override
+//                    public void onAnimationStart(Animation animation) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animation animation) {
+//                        mLayoutReport.setVisibility(View.GONE);
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animation animation) {
+//
+//                    }
+//                });
+//                mLayoutReport.startAnimation(topUp);
 
                 invalidateButtons();
                 mLinearLayoutSelectGroupTypePanel.setVisibility(View.VISIBLE);
