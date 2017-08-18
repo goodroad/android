@@ -5,11 +5,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import java.net.URL;
+
 /**
  * Created by hjlee on 2017-08-03.
  */
 
 public class UriUtil {
+    private static String TAG = "UrlUtil";
     public static String getRealPathFromURI(Uri contentURI, ContentResolver contentResolver) {
         String result;
         Cursor cursor = contentResolver.query(contentURI, null, null, null, null);

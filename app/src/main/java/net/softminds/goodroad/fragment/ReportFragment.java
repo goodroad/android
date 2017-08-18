@@ -193,7 +193,11 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         try {
             ExifInterface exif = null;
             try {
-                exif = new ExifInterface(UriUtil.getRealPathFromURI(uri,contentResolver));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    exif = new ExifInterface(contentResolver.openInputStream(uri));
+                } else {
+                    exif = new ExifInterface(UriUtil.getRealPathFromURI(uri,contentResolver));
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -204,9 +208,13 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
 
             mBitmap = Bitmap.createScaledBitmap(bitmap, 640, 480, true);
+
+            if( mBitmap != bitmap ) {
+                bitmap.recycle();
+            }
             mBitmap = ImageUtil.rotateBitmap(mBitmap, orientation);
 
-            bitmap.recycle();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

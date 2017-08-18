@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -16,6 +17,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -205,7 +207,12 @@ public class MainFragment extends Fragment {
         }
 
         Log.d(TAG,"Absolute path : " + storageDir.getAbsolutePath() + path + "/" + imageFileName);
-        Uri uri = Uri.fromFile(new File(storageDir.getAbsolutePath() + path + "/" + imageFileName));
+        Uri uri = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(getActivity(), "net.softminds.goodroad.fileprovider", new File(storageDir.getAbsolutePath() + path + "/" + imageFileName));
+        } else {
+            uri = Uri.fromFile(new File(storageDir.getAbsolutePath() + path + "/" + imageFileName));
+        }
 
         return uri;
     }

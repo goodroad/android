@@ -1,0 +1,9 @@
+<!-- you can't programmatically add a directory -->
+<!--      in addition to the <files-path> element,
+you can use the <external-path> element
+to share directories in external storage,
+and the <cache-path> element to share directories
+in your internal cache directory. --> <!--      URI will be like      "content://com.tistory.gwpark.caller.fileprovider/funimages/19530.jpg" -->
+<paths>
+    <external-path name="external_files" path="Pictures/" />
+</paths>
