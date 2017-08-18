@@ -1,7 +1,9 @@
 package net.softminds.goodroad.fragment;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +56,7 @@ public class MainFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     Uri mImagePath = null;
+    private View mView;
 
     private static MainFragment mInstance;
 
@@ -102,7 +106,41 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         ((MainActivity)getActivity()).setToolbarTitle(R.string.app_main_activity_title);
-        return inflater.inflate(R.layout.fragment_main, container, false);
+
+        mView = inflater.inflate(R.layout.fragment_main, container, false);
+        mView.setFocusableInTouchMode(true);
+        mView.requestFocus();
+        mView.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                Log.d(TAG,"[MainFragment] keyCode(" + keyCode+ ") event(" + event.getAction() + ")");
+                if (keyCode == KeyEvent.KEYCODE_BACK ) {
+                    if( event.getAction() == KeyEvent.ACTION_UP ) {
+                        android.support.v7.app.AlertDialog.Builder alt_bld = new android.support.v7.app.AlertDialog.Builder(getContext());
+                        alt_bld.setMessage(getString(R.string.exit_activity)).setCancelable(
+                                false).setPositiveButton(getString(R.string.common_yes),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                        getActivity().finish();
+                                    }
+                                }).setNegativeButton(getString(R.string.common_no),
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        android.support.v7.app.AlertDialog alert = alt_bld.create();
+                        // Title for AlertDialog
+                        alert.setTitle(getString(R.string.common_confirm));
+                        alert.show();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+        return mView;
     }
 
     @Override
