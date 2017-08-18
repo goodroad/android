@@ -28,6 +28,8 @@ import net.softminds.goodroad.activity.MainActivity;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -50,6 +52,7 @@ public class MainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    Uri mImagePath = null;
 
     private static MainFragment mInstance;
 
@@ -143,18 +146,36 @@ public class MainFragment extends Fragment {
             if( resultCode != RESULT_OK ) {
                 return;
             }
-            if (data == null) return;
-
             final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
 
-            ft.replace(R.id.layout_content, ReportFragment.getInstance(getContext(), data, getContext().getContentResolver()));
+            ft.replace(R.id.layout_content, ReportFragment.getInstance(getContext(), mImagePath, getContext().getContentResolver()));
             ft.commit();
             ft.addToBackStack(null);
         }
     }
 
+    private Uri createImageFile(){
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + ".jpg";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        String path = "/GoodRoad";
+
+        File goodroadDir = new File(storageDir.getAbsolutePath() + path);
+        if( !goodroadDir.exists() ) {
+            goodroadDir.mkdirs();
+        }
+
+        Log.d(TAG,"Absolute path : " + storageDir.getAbsolutePath() + path + "/" + imageFileName);
+        Uri uri = Uri.fromFile(new File(storageDir.getAbsolutePath() + path + "/" + imageFileName));
+
+        return uri;
+    }
+
     void moveCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mImagePath = createImageFile();
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mImagePath);
         startActivityForResult(intent, 1);
     }
 

@@ -84,11 +84,11 @@ public class MainActivity extends AppCompatActivity
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
-            Log.d(TAG, "Current location : lat(" + location.getLatitude() + ") lng(" + location.getLongitude() + ")");
+            Log.d(TAG, "[LOCATION] Current location : lat(" + location.getLatitude() + ") lng(" + location.getLongitude() + ")");
 
 
             if (mCurrentLocation == null) {
-                Log.d(TAG, "mCurrentLocation is null");
+                Log.d(TAG, "[LOCATION] mCurrentLocation is null");
                 mCurrentLocation = location;
                 if (mLocationChangeListner != null) {
                     mLocationChangeListner.onLocationChanged(location);
@@ -222,20 +222,28 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void checkWritePermission() {
-        Log.d(TAG, "checkpermission!!");
+        Log.d(TAG, "[PERMISSION] check write permission!!");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+        } else {
+            checkLocationPermssion();
         }
     }
 
     private void checkLocationPermssion() {
-        Log.d(TAG, "checkLocationPermssion!!");
+        Log.d(TAG, "[LOCATION] checkLocationPermssion!!");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            Log.d(TAG,"[LOCATION] requestLocationUpdates ");
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    5000, 0, mLocationListener);
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    5000, 0, mLocationListener);
         }
     }
 
@@ -390,12 +398,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d(TAG,"[LOCATION] onRequestPermissionsResult requestCode(" + requestCode + ") ");
         if (requestCode == 2) {
             checkLocationPermssion();
         } else if (requestCode == 1) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Log.d(TAG,"[LOCATION] Location is not permitted ");
                 return;
             }
+            Log.d(TAG,"[LOCATION] requestLocationUpdates ");
             mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                     5000, 0, mLocationListener);
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,

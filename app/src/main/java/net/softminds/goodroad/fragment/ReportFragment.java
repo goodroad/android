@@ -63,6 +63,9 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import static net.softminds.goodroad.activity.MainActivity.mCurrentLocation;
+
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -153,13 +156,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
     }
 
-    public static ReportFragment getInstance(Context context, Intent data, ContentResolver contentResolver) {
-
-        Uri imageDataUri = data.getData();
-
-        if( imageDataUri == null ) {
-            imageDataUri = getImageUri(context, (Bitmap) data.getExtras().get("data"));
-        }
+    public static ReportFragment getInstance(Context context, Uri imageDataUri, ContentResolver contentResolver) {
 
         if (mInstance == null) {
             mInstance = new ReportFragment();
@@ -220,8 +217,22 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         if(!pathFile.isDirectory()) {
             pathFile.mkdirs();
         }
+
+        pathFile = new File(path);
+        if(!pathFile.isDirectory()) {
+            path = "/sdcard/GoodRoad/";
+            File dir = new File(path);
+            dir.mkdirs();
+        }
+
         mFileName = String.valueOf(System.currentTimeMillis()) + ".jpg";
-        mFile = new File(path + mFileName);
+
+        mFile = new File(new File(path), mFileName);
+        if (mFile.exists()) {
+            mFile.delete();
+        }
+
+        Log.d(TAG,"File path : " + path + mFileName);
         if(!mFile.exists()) {
             try {
                 mFile.createNewFile();
@@ -582,19 +593,23 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         super.onDetach();
 
         mListener = null;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        Log.d(TAG,"onDestroyView");
-        MainActivity.setLocationChangeListner(null);
         if( mBitmap != null ) {
             mBitmap.recycle();
             mBitmap = null;
             ((BitmapDrawable) mIvImageReport.getDrawable()).getBitmap().recycle();
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if( mBitmap != null ) {
+            mBitmap.recycle();
+            mBitmap = null;
+            ((BitmapDrawable) mIvImageReport.getDrawable()).getBitmap().recycle();
+        }
+        Log.d(TAG,"onDestroyView");
+        MainActivity.setLocationChangeListner(null);
     }
 
     @Override
@@ -606,11 +621,14 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     // net.daum.mf.map.api.MapView.MapViewEventListener
 
     public void onMapViewInitialized(net.daum.mf.map.api.MapView mapView) {
-        Log.i(TAG, "MapView had loaded. Now, MapView APIs could be called safely");
+        Log.i(TAG, "[LOCATION] MapView had loaded. Now, MapView APIs could be called safely");
         //mMapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
-        if(MainActivity.mCurrentLocation != null ) {
-            mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(MainActivity.mCurrentLocation.getLatitude(), MainActivity.mCurrentLocation.getLongitude()), 2, true);
+        if(mCurrentLocation != null ) {
+            Log.d(TAG,"[LOCATION] mCurrentLocation is not null. Centering");
+            mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), 2, true);
             mLocationUpdateReceived++;
+        } else {
+            Log.d(TAG,"[LOCATION] mCurrentLocation is null.");
         }
     }
 
@@ -707,9 +725,15 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
     @Override
     public void onLocationChanged(Location location) {
-        if( mLocationUpdateReceived == 0 && MainActivity.mCurrentLocation != null ) {
+        Log.d(TAG,"[LOCATION] onLocationChanged(Fragment)");
+        Log.d(TAG,"[LOCATION] mLocationUpdateReceived(" + mLocationUpdateReceived + ") mCurrentLocation(" + mCurrentLocation + ")");
+        if( mLocationUpdateReceived == 0 && mCurrentLocation != null ) {
+
             if( mMapView != null ) {
-                mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(MainActivity.mCurrentLocation.getLatitude(), MainActivity.mCurrentLocation.getLongitude()), 2, true);
+                Log.d(TAG,"[LOCATION] map view is not null. Centering");
+                mMapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithGeoCoord(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), 2, true);
+            }else {
+                Log.d(TAG,"[LOCATION] map view is null.");
             }
             mLocationUpdateReceived++;
         }
