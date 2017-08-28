@@ -206,7 +206,16 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             options.inSampleSize = 2;
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
 
-            mBitmap = Bitmap.createScaledBitmap(bitmap, 640, 480, true);
+            int width = 0, height = 0;
+            if( bitmap.getWidth() > bitmap.getHeight() ) {
+                width = 640;
+                height = 640 * bitmap.getHeight()/bitmap.getWidth();
+            } else {
+                width = 640 * bitmap.getWidth()/bitmap.getHeight();
+                height = 640;
+            }
+
+            mBitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
 
             if( mBitmap != bitmap ) {
                 bitmap.recycle();
