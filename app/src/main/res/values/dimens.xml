@@ -17,13 +17,15 @@
     <dimen name="nav_submenu_font_size">16sp</dimen>
     <dimen name="icon_menu_collapse_margin">20dp</dimen>
     <dimen name="map_height">180dp</dimen>
-    <dimen name="map_padding">10dp</dimen>
+    <dimen name="map_padding">0dp</dimen>
     <dimen name="map_margin_top">10dp</dimen>
-    <dimen name="map_height_plus_padding">190dp</dimen>
+    <dimen name="map_height_plus_padding">180dp</dimen>
     <dimen name="saved_group_species_font_size">15sp</dimen>
     <dimen name="copyright_text_font_size">18sp</dimen>
     <dimen name="sending_info_font_size">15sp</dimen>
     <dimen name="sending_font_size">18sp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="tab_title_font_size">20sp</dimen>
+    <dimen name="map_move_guide_top_margin">162dp</dimen>
+    <dimen name="map_move_guide_left_margin">5dp</dimen>
 </resources>

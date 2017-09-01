@@ -90,4 +90,5 @@
     <string name="sending_step_2">이미지 전송 중...</string>
     <string name="sending_step_3">내용 전송 중...</string>
     <string name="exit_activity">굿로드 앱을 종료하시겠습니까?</string>
+    <string name="map_move_guide">지도의 위치를 움직여서 핀 위치를 지정할 수 있습니다.</string>
 </resources>

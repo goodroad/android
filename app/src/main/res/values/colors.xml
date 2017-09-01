@@ -11,7 +11,7 @@
     <color name="list_item_title">#000000</color>
     <color name="group_divider_color">#dddddd</color>
     <color name="list_item_submenu_title">#999999</color>
-    <color name="report_bg">#eff0f4</color>
+    <color name="report_bg">#ffffff</color>
     <color name="report_layout_bg">#ffffff</color>
     <color name="report_text">#ecc314</color>
     <color name="report_color">#be8b10</color>

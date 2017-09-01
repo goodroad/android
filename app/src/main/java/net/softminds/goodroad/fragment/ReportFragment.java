@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
 import android.media.ExifInterface;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -189,6 +190,7 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     private void save(Uri uri, ContentResolver contentResolver) {
         //resize
         if( uri == null ) return;
+        MediaScannerConnection.scanFile(getActivity(), new String[] { UriUtil.getRealPathFromURI(uri,contentResolver) }, null, null);
         try {
             ExifInterface exif = null;
             try {

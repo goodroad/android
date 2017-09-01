@@ -21,7 +21,10 @@ public class UriUtil {
         } else {
             cursor.moveToFirst();
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
+            if( idx >= 0 )
+                result = cursor.getString(idx);
+            else
+                result = contentURI.getPath();
             cursor.close();
         }
         return result;

@@ -48,15 +48,17 @@ public class Phone1Fragment extends Fragment {
             lvPhone1.setAdapter(adapter1);
 
             adapter1.addItem("강원", "033-250-7504");
-            adapter1.addItem("경기", "031-8008-6210");
+            adapter1.addItem("경기", "031-8008-6212");
             adapter1.addItem("경남", "055-754-9575");
             adapter1.addItem("경북", "054-840-8250");
-            adapter1.addItem("부산", "051-209-2090~3");
-            adapter1.addItem("울산", "052-256-5322~3");
-            adapter1.addItem("전남", "061-749-3898");
-            adapter1.addItem("전북", "063-850-0956");
-            adapter1.addItem("제주", "064-752-9582");
-            adapter1.addItem("충남", "041-330-1666");
+            adapter1.addItem("대전", "042-821-7930");
+            adapter1.addItem("부산", "051-209-2091");
+            adapter1.addItem("서울", "02-880-8659");
+            adapter1.addItem("울산", "052-256-5322");
+            adapter1.addItem("전남", "061-749-4800");
+            adapter1.addItem("전북", "063-850-0983");
+            adapter1.addItem("제주", "064-752-9982");
+            adapter1.addItem("충남", "041-334-1666");
             adapter1.addItem("충북", "043-216-3328");
             lvPhone1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
