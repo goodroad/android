@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import kr.co.goodroad.R;
 
+import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
+
 /**
  * Created by hjlee on 2017-07-30.
  */
@@ -29,6 +31,7 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                             Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+                            mainIntent.setFlags(FLAG_ACTIVITY_SINGLE_TOP);
                             SplashActivity.this.startActivity(mainIntent);
                         SplashActivity.this.finish();
                     }
