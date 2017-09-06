@@ -388,6 +388,11 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorDarkGray));
+
         mSelectedGroup = "";
         mLayoutReport = (RelativeLayout) getView().findViewById(R.id.layout_report);
 

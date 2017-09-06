@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/layout_report"
         android:background="@color/report_bg"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,7 +19,7 @@
             android:id="@+id/map_view"
             android:padding="@dimen/map_padding"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@color/colorWhite"
             android:layout_height="@dimen/map_height" />
         <TextView
@@ -38,7 +38,7 @@
             android:layout_marginTop="@dimen/map_height_plus_padding">
 
             <ScrollView
-                android:paddingBottom="50dp"
+                android:paddingBottom="60dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
@@ -55,8 +55,8 @@
                         android:paddingBottom="5dp"
                         android:paddingTop="5dp"
                         android:layout_alignParentStart="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_height="120dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="130dp"
                         android:layout_alignParentLeft="true">
 
                         <TextView
@@ -65,14 +65,20 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/tv_section_label_1"
                             android:textStyle="bold"
-                            android:textColor="@color/report_text"
+                            android:textColor="@color/colorReportSubtitle"
                             android:textSize="12dp" />
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_below="@id/tv_section_label_1"
+                            android:id="@+id/line1"
+                            android:background="@color/colorVeryLightGray"></RelativeLayout>
                         <ImageView
                             android:layout_height="80dp"
-                            android:layout_below="@id/tv_section_label_1"
+                            android:layout_below="@id/line1"
                             android:id="@+id/image_report"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="0dp"
                             android:scaleType="centerCrop"
                             android:layout_width="80dp"
                             android:layout_marginRight="10dp" />
@@ -83,7 +89,7 @@
                             android:layout_alignTop="@id/image_report"
                             android:id="@+id/layout_time"
                             android:gravity="center_vertical"
-                            android:layout_height="40dp">
+                            android:layout_height="45dp">
 
                             <ImageView
                                 app:srcCompat="@mipmap/icon_cal"
@@ -100,7 +106,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorReportDecoText"
                                 android:id="@+id/tv_in" />
 
                             <TextView
@@ -116,14 +122,22 @@
 
                         </RelativeLayout>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_below="@id/layout_time"
+                            android:layout_toRightOf="@id/image_report"
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/line2"
+                            android:background="@color/colorVeryLightGray"></RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_toRightOf="@id/image_report"
-                            android:layout_below="@id/layout_time"
+                            android:layout_below="@id/line2"
                             android:id="@+id/layout_2"
                             android:gravity="center_vertical"
-                            android:layout_height="40dp">
+                            android:layout_height="45dp">
 
                             <ImageView
                                 app:srcCompat="@mipmap/icon_map"
@@ -139,7 +153,7 @@
                                 android:layout_centerVertical="true"
                                 android:id="@+id/tv_at"
                                 android:gravity="start|center_vertical"
-                                android:textColor="@color/colorBlack"
+                                android:textColor="@color/colorReportDecoText"
                                 android:layout_width="30dp" />
 
 
@@ -158,6 +172,14 @@
                                 android:layout_marginLeft="10dp" />
                         </RelativeLayout>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_below="@id/image_report"
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/line3"
+                            android:background="@color/colorVeryLightGray"></RelativeLayout>
+
 
                     </RelativeLayout>
 
@@ -169,7 +191,7 @@
                         android:layout_below="@+id/layout_report_addr_and_time"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="0dp"
                         android:textColor="@color/colorGray"
                         android:id="@+id/tv_i_saw_roadkill"
                         android:layout_alignParentRight="true"
@@ -221,7 +243,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_below="@id/layout_report_addr_and_time"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@color/report_layout_bg"
                         android:id="@+id/layout_btn_open_select_group_type">
 
@@ -232,7 +255,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_marginStart="10dp"
                             android:textStyle="bold"
-                            android:textColor="@color/report_text"
+                            android:textColor="@color/colorReportSubtitle"
                             android:id="@+id/tv_btn_open_select_group_type"
                             android:layout_centerVertical="true"
                             android:layout_alignParentLeft="true"
@@ -367,11 +390,14 @@
             <Button
                 android:text="@string/btn_report"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_alignParentStart="true"
                 android:id="@id/btn_report"
                 android:layout_alignParentBottom="true"
-                android:background="@color/report_text"
+                android:background="@color/colorYellow"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/colorDarkGray"
                 android:layout_alignParentLeft="true" />
         </RelativeLayout>
     </RelativeLayout>

@@ -9,8 +9,8 @@
             android:id="@+id/toolbar"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:titleTextColor="@color/colorYellow"
+            android:layout_height="50dp"
+            android:titleTextColor="@color/colorWhite"
             android:background="@color/colorTransparent"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <TextView
@@ -19,7 +19,7 @@
                 android:textSize="@dimen/activity_label_text_size"
                 android:text="@string/app_main_activity_title"
                 android:textStyle="bold"
-                android:textColor="@color/colorYellow"
+                android:textColor="@color/colorWhite"
                 android:layout_gravity="center"
                 android:id="@+id/toolbar_title" />
             <!--<RelativeLayout-->

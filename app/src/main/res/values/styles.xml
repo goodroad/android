@@ -21,12 +21,12 @@
     </style>
     <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
-        <item name="color">@color/colorYellow</item>
+        <item name="color">@color/colorWhite</item>
     </style>
     <style name="ThemeOverlay.GoodRoad.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <!-- Parent theme sets colorControlNormal to textColorPrimary. -->
         <item name="android:background">@color/colorLightBlack</item>
-        <item name="android:textColorPrimary">@color/colorYellow</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
     </style>
     <style name="ThemeOverlay.GoodRoad.CallTab" parent="ThemeOverlay.AppCompat.ActionBar">
         <!-- Parent theme sets colorControlNormal to textColorPrimary. -->
