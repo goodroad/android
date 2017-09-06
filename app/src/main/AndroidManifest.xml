@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.softminds.goodroad">
+    package="kr.co.goodroad">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -21,7 +21,7 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
         <provider android:name="android.support.v4.content.FileProvider"
-            android:authorities="net.softminds.goodroad.fileprovider"
+            android:authorities="kr.co.goodroad.fileprovider"
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data

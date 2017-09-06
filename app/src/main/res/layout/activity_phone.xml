@@ -2,7 +2,7 @@
 <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context="net.softminds.goodroad.activity.IntroActivity"
+    tools:context="kr.co.goodroad.activity.IntroActivity"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"

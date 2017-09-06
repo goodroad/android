@@ -5,7 +5,7 @@
     android:background="@color/colorLightBlack"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.softminds.goodroad.activity.IntroActivity">
+    tools:context="kr.co.goodroad.activity.IntroActivity">
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
