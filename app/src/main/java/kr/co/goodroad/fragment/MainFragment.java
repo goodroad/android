@@ -205,14 +205,29 @@ public class MainFragment extends Fragment {
         String imageFileName = "JPEG_" + timeStamp + ".jpg";
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
-        String path = "/GoodRoad";
+        String path = File.separator + "GoodRoad";
+
+        Log.d(TAG,"DIRECTORY : " + Environment.DIRECTORY_PICTURES);
 
         File goodroadDir = new File(storageDir.getAbsolutePath() + path);
         if( !goodroadDir.exists() ) {
-            goodroadDir.mkdirs();
+            if( goodroadDir.mkdirs() == false ) {
+                storageDir = new File(Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_PICTURES);
+                goodroadDir = new File(storageDir.getAbsolutePath() + path);
+                if( !goodroadDir.exists() ) {
+                    if( goodroadDir.mkdirs() == false ) {
+                        storageDir = new File(Environment.getDataDirectory().getAbsolutePath() + File.separator + Environment.DIRECTORY_PICTURES);
+                        goodroadDir = new File(storageDir.getAbsolutePath() + path);
+                        goodroadDir.mkdirs();
+                    }
+                }
+            }
         }
 
+
+
         Log.d(TAG,"Absolute path : " + storageDir.getAbsolutePath() + path + "/" + imageFileName);
+
         Uri uri = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             uri = FileProvider.getUriForFile(getActivity(), "kr.co.goodroad.fileprovider", new File(storageDir.getAbsolutePath() + path + "/" + imageFileName));

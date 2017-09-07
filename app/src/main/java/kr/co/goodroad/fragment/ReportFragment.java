@@ -230,15 +230,16 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
         }
 
         //save
-        String path = Environment.getExternalStorageDirectory().getPath() + "/GoodRoad/";
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "GoodRoad" + File.separator;
         File pathFile = new File(path);
+
         if(!pathFile.isDirectory()) {
             pathFile.mkdirs();
         }
 
         pathFile = new File(path);
         if(!pathFile.isDirectory()) {
-            path = "/sdcard/GoodRoad/";
+            path = Environment.getDataDirectory().getAbsolutePath() + File.separator + "GoodRoad" + File.separator;
             File dir = new File(path);
             dir.mkdirs();
         }
