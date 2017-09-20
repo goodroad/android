@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:titleTextColor="@color/colorWhite"
-            android:background="@color/colorTransparent"
+            android:background="@color/colorLightBlack"
             app:popupTheme="@style/AppTheme.PopupOverlay">
             <TextView
                 android:layout_width="wrap_content"

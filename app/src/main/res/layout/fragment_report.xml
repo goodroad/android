@@ -66,7 +66,7 @@
                             android:id="@+id/tv_section_label_1"
                             android:textStyle="bold"
                             android:textColor="@color/colorReportSubtitle"
-                            android:textSize="12dp" />
+                            android:textSize="14sp" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -244,7 +244,7 @@
                         android:layout_height="50dp"
                         android:layout_below="@id/layout_report_addr_and_time"
                         android:layout_marginTop="0dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="0dp"
                         android:background="@color/report_layout_bg"
                         android:id="@+id/layout_btn_open_select_group_type">
 
@@ -256,6 +256,7 @@
                             android:layout_marginStart="10dp"
                             android:textStyle="bold"
                             android:textColor="@color/colorReportSubtitle"
+                            android:textSize="14sp"
                             android:id="@+id/tv_btn_open_select_group_type"
                             android:layout_centerVertical="true"
                             android:layout_alignParentLeft="true"
@@ -563,13 +564,15 @@
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorGray"
                 android:backgroundTint="@color/colorGray"
+                android:background="@drawable/edittext_bg"
                 android:shadowColor="@color/colorLightGray"
+                android:paddingBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:src="@mipmap/icon_close"
                 android:id="@+id/ib_clear_species"
                 android:background="@drawable/click_effect"
                 android:layout_alignParentRight="true"
@@ -596,8 +599,10 @@
                 android:enabled="false"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
-                android:textColor="@color/colorGray"
-                android:background="@color/colorLightGray"
+                android:layout_margin="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorSaveBtnText"
+                android:background="@color/colorSaveBtnBg"
                 android:layout_alignParentLeft="true" />
             <View android:layout_height="1dp"
                 android:layout_width="match_parent"

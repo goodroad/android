@@ -392,8 +392,6 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
 
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
-        toolbar.setBackgroundColor(getResources().getColor(R.color.colorDarkGray));
-
         mSelectedGroup = "";
         mLayoutReport = (RelativeLayout) getView().findViewById(R.id.layout_report);
 
@@ -565,10 +563,12 @@ public class ReportFragment extends Fragment implements net.daum.mf.map.api.MapV
             mBtnSave.setEnabled(false);
             mBtnSave.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
             mBtnSave.setTextColor(getResources().getColor(R.color.colorGray));
+            mIbClearSpecies.setImageDrawable(getResources().getDrawable(R.mipmap.icon_close));
         } else {
             mBtnSave.setEnabled(true);
             mBtnSave.setBackgroundColor(getResources().getColor(R.color.colorDarkGray));
             mBtnSave.setTextColor(getResources().getColor(R.color.colorYellow));
+            mIbClearSpecies.setImageDrawable(getResources().getDrawable(R.mipmap.icon_close_red));
         }
         for( int i = 0 ; i < mRelativeLayoutSpeciesButtons.getChildCount() ; i++ ) {
             Button btn = (Button)mRelativeLayoutSpeciesButtons.getChildAt(i);

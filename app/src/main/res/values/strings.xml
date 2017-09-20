@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">굿로드</string>
-    <string name="app_main_activity_title">GOODROAD</string>
+    <string name="app_main_activity_title">로드킬 신고 등록</string>
     <string name="app_main_activity_title_for_report">로드킬 신고 등록</string>
 
     <string name="camera_caution">당신의 안전부터 확인하세요.</string>

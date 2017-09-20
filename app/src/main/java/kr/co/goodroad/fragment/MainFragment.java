@@ -152,8 +152,6 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
-        toolbar.setBackgroundColor(getResources().getColor(R.color.colorTransparent));
-
         mBtnCamera = (ImageButton) getView().findViewById(R.id.imageButton_camera);
         mBtnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
