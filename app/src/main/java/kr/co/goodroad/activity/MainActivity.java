@@ -240,10 +240,12 @@ public class MainActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
             Log.d(TAG,"[LOCATION] requestLocationUpdates ");
-            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                    5000, 0, mLocationListener);
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    5000, 0, mLocationListener);
+            if (mLocationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                        5000, 0, mLocationListener);
+            if (mLocationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                        5000, 0, mLocationListener);
         }
     }
 
