@@ -19,7 +19,7 @@
                 android:textSize="@dimen/activity_label_text_size"
                 android:text="@string/app_main_activity_title"
                 android:textStyle="bold"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorYellow"
                 android:layout_gravity="center"
                 android:id="@+id/toolbar_title" />
             <!--<RelativeLayout-->

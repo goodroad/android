@@ -31,5 +31,6 @@
     <color name="colorBrown">#803300</color>
     <color name="colorReportSubtitle">#666666</color>
     <color name="colorReportDecoText">#7f7f7f</color>
+    <color name="colorReportCompleteSiteInfo">#565656</color>
     <color name="colorVeryLightGray">#f0f0f0</color>
 </resources>

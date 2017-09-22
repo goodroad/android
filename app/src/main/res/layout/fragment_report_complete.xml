@@ -147,7 +147,7 @@
                 android:src="@mipmap/image_greenkorea_logo" />
             <TextView
                 android:layout_marginTop="10dp"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/colorReportCompleteSiteInfo"
                 android:text="@string/report_complete_site_info"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
